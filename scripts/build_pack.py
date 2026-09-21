@@ -87,6 +87,7 @@ def build(source, output):
             raise ValueError('Output cannot contain a link')
     if output.exists():
         raise ValueError('Output must not exist; build into a fresh directory')
+    output = output.resolve()
     if source == output or source in output.parents:
         raise ValueError('Never build into the source checkout')
     commit = subprocess.check_output(['git', '-C', str(source), 'rev-parse', 'HEAD'], text=True).strip()

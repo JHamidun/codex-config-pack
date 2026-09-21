@@ -4,7 +4,7 @@
 
 - Mypy 1.19.0, five implementation modules, with
   `--check-untyped-defs --follow-imports=skip --ignore-missing-imports`: passed.
-- 35 unit/integration tests on Windows/Python 3.13: passed, none skipped.
+- 36 unit/integration tests on Windows/Python 3.13: passed, none skipped.
 - Public bundle: 2633 manifested files, 573 unique catalog entries, 73 parsed native TOML agents.
 - Final bundle manifest exactly matches the clean pinned-source builder output.
   Fixture rebuild determinism is tested; the source checkout remained unchanged.
@@ -30,6 +30,8 @@ missing dependencies, reference-only code resolution, outside-bundle paths, non-
 Python imports, and exclusion of materials without an established upstream redistribution license.
 An additional regression reproduces CRLF conversion with `core.autocrlf=true` and verifies
 that the release `.gitattributes` preserves the LF bytes used by the bundle manifest.
+A path-alias regression verifies canonical output containment before any Git invocation,
+following a Windows/Python 3.11 CI failure on a short-name temporary-directory alias.
 
 ## Not claimed
 

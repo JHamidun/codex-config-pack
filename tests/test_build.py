@@ -102,6 +102,22 @@ class BuildTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'source checkout'):
             builder.build(self.source, self.source / 'generated')
 
+    def test_output_alias_inside_source_is_rejected_before_git(self):
+        alias = self.base / 'short-name-alias' / 'generated'
+        canonical_output = self.source.resolve() / 'generated'
+        original_resolve = Path.resolve
+
+        def resolve(path, *args, **kwargs):
+            if path == alias:
+                return canonical_output
+            return original_resolve(path, *args, **kwargs)
+
+        with patch.object(Path, 'resolve', resolve):
+            with patch.object(builder.subprocess, 'check_output') as git:
+                with self.assertRaisesRegex(ValueError, 'source checkout'):
+                    builder.build(self.source, alias)
+                git.assert_not_called()
+
     def test_output_through_link_is_rejected(self):
         link = self.base / 'link'
         try:
