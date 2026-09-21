@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+dist/
+work/
+.env
+*.session
+*.db
+*.sqlite*
+test-results.local.json

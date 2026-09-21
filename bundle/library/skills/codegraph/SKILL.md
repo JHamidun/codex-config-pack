@@ -1,0 +1,69 @@
+---
+name: "codegraph"
+description: "Граф кода: навигация и impact-анализ кодбазы (CLI codegraph). Триггеры: «кто вызывает», «что затронет изменение», «трейс вызовов», «blast-radius». НЕ правка кода."
+---
+
+# Codex execution contract
+
+This recipe was adapted from a pinned public source. Its domain guidance is reusable;
+its historical provider examples are not a live capability registry.
+
+1. Resolve `${CODEX_PACK_ROOT}` from the installed `hamidun-pack` entrypoint. It is a documentation root, not an environment variable automatically created by Codex.
+2. Native tool mapping: Claude `Read/Glob/Grep` means available file/search tools; `Bash` means the current shell; `Write/Edit/MultiEdit` means the supported patch/file tool. Claude `Task/Agent` means native collaboration with a concrete bounded subtask, only when delegation is authorized. Tool names inside old examples are illustrative, not callable API schemas.
+3. Claude slash commands become catalog recipes. They are not automatically registered as Codex slash commands. Pass arguments explicitly in the task.
+4. Do not execute files ending in `.source`, upstream hook examples, or paths containing `UPSTREAM_HOME`. They are quarantined reference code, NOT a validated runtime. A dependent workflow must first receive a reviewed Codex-owned adapter with explicit state/output roots and tests, or use an available native capability.
+5. Do not load secrets, session databases, private memory, or Claude model/provider defaults. Resolve integrations and named environment variables only when required and authorized.
+6. Model IDs, MCP names, permission snippets and scheduled-job examples in the source are historical. Check current supported equivalents. Never activate them just because a recipe mentions them.
+7. Prefer native image generation, documents and browser tooling where available. Do not install dependencies or authorize a third party as a side effect of reading this recipe.
+8. Preserve scope and output requirements. Mark unavailable dependencies clearly; do not claim a recipe passed a live test from a syntax/manifest check.
+
+## Adapted domain recipe
+
+
+# codegraph — граф кода для навигации и impact-анализа
+
+Инструмент: **@colbymchenry/codegraph** (публичный npm, с паком не едет — ставится глобально: `npm i -g @colbymchenry/codegraph`). Хранит граф символов/вызовов в `.codegraph/codegraph.db` (SQLite) внутри папки каждого проекта. Индексирует TS/JS(ESM)/Python/PHP/Vue и др. (30+ языков; НЕ Dart, НЕ .sh/.json/.md/.html).
+
+Всё описанное ниже снято на **1.4.1** — гочи вроде «не резолвит `@/*` path-alias» привязаны к версии, на свежей проверяй заново (`codegraph --version`).
+
+## Как ЗАПРОСИТЬ граф (работает из ЛЮБОЙ сессии)
+
+MCP у каждого проекта **project-scoped** (`.mcp.json` в папке графа) — авто-подхватывается ТОЛЬКО если сессия Claude Code запущена с этой папкой как cwd. Из основной сессии — **используй CLI** (читает `.codegraph` из cwd):
+
+```bash
+cd <папка-проекта-с-графом>       # перейти в папку, где лежит .codegraph
+codegraph callers <symbol>     # кто вызывает функцию/метод (точные file:line, без grep-шума)
+codegraph callees <symbol>     # что вызывает данный символ (трейс пайплайна)
+codegraph impact <symbol>      # blast-radius: ВСЕ транзитивно затронутые изменением символы
+codegraph explore <query...>   # область: релевантные символы + исходники + call paths одним вызовом
+codegraph node <name>          # один символ: исходник + caller/callee-трейл (или файл с зависимыми)
+codegraph query <search>       # поиск символа по имени
+codegraph status               # статистика графа (узлы/рёбра/языки)
+codegraph files                # структура файлов из индекса
+```
+
+Запросы **на английском** (символы/имена как в коде). Пример: «кто вызывает getUser в сервисе auth» → `cd <папка> && codegraph callers getUser`.
+
+## Когда граф, когда grep
+- **Граф**: «кто вызывает / что сломается если поменять / трейс вызовов / зависимости / где определён» — точно, транзитивно, без шума (def/импорты/логи/.bak grep тащит, граф — нет).
+- **grep**: строковый поиск в .sh/.json/.md/.env/конфигах (граф их не индексит); символы через tsconfig `@/*`-alias (codegraph не резолвит alias); маршруты фреймворков вроде Lumen (`routes/web.php`=0 символов); CommonJS `require` (слабо — call-вопросы grep'ом).
+
+## Статичная карта репо: ARCHITECTURE.md (комплемент графу)
+Граф отвечает «кто вызывает X / blast-radius» (динамика). Для durable-карты «что за система, границы, стек, потоки, риски», которую свежий агент/человек читает ПЕРВОЙ — держи `ARCHITECTURE.md` в корне крупного репо. Канонический 10+4-секционный скелет + анти-галлюцинационные правила заполнения + поток генерации через `codegraph explore/status` → **references/architecture-md-template.md**.
+
+## Организация графов нескольких проектов
+Удобно держать графы всех проектов в одной папке-хабе (напр. `~/graphs/<project-name>/`), а не внутри исходников. Тогда `.codegraph` не мусорит в рабочих репозиториях, а `ls ~/graphs/` даёт быструю карту «какие проекты проиндексированы». Для in-place-графа (в самой папке кода) — просто `codegraph init` из корня репо.
+
+## Ре-синк (код проекта изменился)
+Граф — снапшот. Перед работой обнови исходники в папке графа (напр. `git pull` или `tar`-стрим с сервера) → `codegraph sync` (не re-init; mtime сохраняются). Если файл ломает checkout — полный `codegraph index`, не sync.
+
+**Стандартный exclude при переносе исходников** (иначе граф распухает на чужом коде и генерёнке): `node_modules` `vendor` `.git` `dist` `build` `.next` `__pycache__` `.venv` `venv` `coverage` `*.min.js` `logs` `backups*` `*.db` `*.bak*` и бинарь (png/jpg/pdf/zip). Тащить `tar` **явным списком код-каталогов**, а не `. --exclude=…`: на медленном диске корневой `node_modules` статится бесконечно. На MSYS/Windows — `tar --force-local` (иначе `C:` читается как имя хоста), а ADS-файлы `:Zone.Identifier` ломают checkout — `git rm --cached` их.
+
+## Построить НОВЫЙ граф (проект без графа)
+`cd <папка-кода>` → `git init -q` (нужен git-репо; проверь, что родительский `.gitignore` не глушит `scripts/` кейс-инсенситивно → 0 files) → `codegraph init`. Проверь `codegraph status` — если property-узлов 10k+ (сгенерированный код `generated/` / бандлы) → удали bloat-каталоги локально + `codegraph index`. Прерванный init (корраптный `.db-wal`) → `rm -rf .codegraph` + заново. Для прод Node-контейнера индексируй ИСХОДНИК на хосте, не компилят в контейнере.
+
+## Обогащение смыслом (опционально, по запросу)
+Граф даёт СТРУКТУРУ (символы/вызовы), но не знает, что код ДЕЛАЕТ и какой бизнес-процесс закрывает. Для вопросов «объясни архитектуру / онбординг / какой код за процесс Y» — доложить LLM-семантический слой поверх графа (node summaries · слои API/Service/Data/UI/Utility · domain→flow→step · guided tour), инкрементально, кэш в `.codegraph/enrichment.json`. Рецепт → references/llm-semantic-enrichment.md. Для «кто вызывает / трейс / impact» это НЕ нужно — чистый CLI выше.
+
+## Kill-switch
+`codegraph uninit <dir>` + удалить `.mcp.json`. Демонов не остаётся (`codegraph daemons` проверить/погасить).

@@ -1,0 +1,182 @@
+---
+name: "ceo-council"
+description: "Параллельный разбор стратегического вопроса независимыми C-level экспертами — срезает слепые зоны. Триггеры: «совет директоров», «мнения экспертов»."
+---
+
+# Codex execution contract
+
+This recipe was adapted from a pinned public source. Its domain guidance is reusable;
+its historical provider examples are not a live capability registry.
+
+1. Resolve `${CODEX_PACK_ROOT}` from the installed `hamidun-pack` entrypoint. It is a documentation root, not an environment variable automatically created by Codex.
+2. Native tool mapping: Claude `Read/Glob/Grep` means available file/search tools; `Bash` means the current shell; `Write/Edit/MultiEdit` means the supported patch/file tool. Claude `Task/Agent` means native collaboration with a concrete bounded subtask, only when delegation is authorized. Tool names inside old examples are illustrative, not callable API schemas.
+3. Claude slash commands become catalog recipes. They are not automatically registered as Codex slash commands. Pass arguments explicitly in the task.
+4. Do not execute files ending in `.source`, upstream hook examples, or paths containing `UPSTREAM_HOME`. They are quarantined reference code, NOT a validated runtime. A dependent workflow must first receive a reviewed Codex-owned adapter with explicit state/output roots and tests, or use an available native capability.
+5. Do not load secrets, session databases, private memory, or Claude model/provider defaults. Resolve integrations and named environment variables only when required and authorized.
+6. Model IDs, MCP names, permission snippets and scheduled-job examples in the source are historical. Check current supported equivalents. Never activate them just because a recipe mentions them.
+7. Prefer native image generation, documents and browser tooling where available. Do not install dependencies or authorize a third party as a side effect of reading this recipe.
+8. Preserve scope and output requirements. Mark unavailable dependencies clearly; do not claim a recipe passed a live test from a syntax/manifest check.
+
+## Adapted domain recipe
+
+
+# CEO Council — Independent Strategic Analysis
+
+Launch parallel sub-agents as isolated C-level experts. Each analyzes the same project data from their perspective. No coordination between experts — isolation produces genuine diversity of opinion. Then synthesize consensus and disagreements.
+
+## Critical: How to Launch Experts
+
+**MUST use the Task tool** with `subagent_type: "general-purpose"` and `model: inherit-current-codex-model`.
+
+```
+Task(
+  subagent_type: "general-purpose",
+  model: inherit-current-codex-model,
+  prompt: "<expert prompt with data>",
+  description: "CFO analysis"
+)
+```
+
+**DO NOT** use bash, shell scripts, or background commands to launch experts. They will fail.
+
+Launch all experts in a **single message with multiple Task tool calls** for true parallelism.
+
+## Step 1: Scan Project Context
+
+Before suggesting experts, understand the project:
+
+1. Read `CLAUDE.md` (or `README.md` if absent)
+2. Scan `.claude/rules/` for domain context
+3. Glance at top-level file structure
+
+Based on findings, **generate 4-6 expert roles tailored to THIS project**. Roles must reflect the project's actual domain, challenges, and stage.
+
+## Step 2: Assemble the Council
+
+**MANDATORY: Ask the user before proceeding.** Do not pick roles yourself.
+
+Use `AskUserQuestion` with `multiSelect: true`:
+- Show 4-6 role options with short descriptions of their focus
+- User can always pick "Other" to define custom roles
+- **Minimum 2 experts.** If user picks 1, suggest adding one more for productive disagreement
+
+### Role Examples by Project Type
+
+**Don't copy these** — generate fresh roles based on actual project context:
+
+| Project Type | Typical Roles |
+|-------------|--------------|
+| **SaaS** | Head of Engineering, Head of Product, Head of Growth, CFO, UX Researcher |
+| **Open Source** | Community Manager, Technical Architect, DevRel, Security Advisor |
+| **Content / Media** | Content Strategist, Audience Analyst, Monetization Expert, Distribution Expert |
+| **EdTech** | CMO, CFO, CPO, COO, Growth Advisor |
+| **E-commerce** | Head of Supply Chain, Marketing Director, CTO, Customer Experience Lead |
+| **Agency / Consulting** | Sales Director, Delivery Lead, Talent Manager, CFO |
+
+## Step 3: Gather Current Data
+
+Collect project state to feed all experts. Stay focused on what's relevant:
+
+**Read:**
+- Key metrics/data files identified during context scan
+- Strategy and planning documents
+- Recent decisions or changes (git log --oneline -10)
+- Previous council analyses (if any)
+
+**Skip:** GitHub traffic stats, stargazer counts, clone data, contributor lists — these are vanity metrics, not strategic data.
+
+**All experts must receive identical data context.** Prepare the data block ONCE, then paste it into each expert prompt.
+
+## Step 4: Generate Expert Prompts
+
+For each selected expert, create a prompt with the SAME data block:
+
+```
+You are the [ROLE] for [PROJECT NAME]. Analyze the data below from a [DOMAIN] perspective.
+
+Focus on:
+- [3-6 specific focus areas relevant to role and project]
+
+Data:
+[CURRENT PROJECT DATA — identical for all experts]
+
+[Role-specific instruction: "show the math", "be the contrarian", "prioritize by effort/impact", etc.]
+
+Respond in the same language as the data provided.
+```
+
+**Rules:**
+- Each expert gets the SAME data block — prepare it once, reuse
+- Focus areas must be specific to the project, not generic
+- Include a personality instruction (contrarian, pragmatic, data-driven)
+- Mention project constraints the expert should know
+
+## Step 5: Execute
+
+Launch ALL selected experts in **one message** using multiple Task tool calls:
+
+```
+# In a single response, call Task for each expert:
+Task(subagent_type: "general-purpose", model: inherit-current-codex-model, prompt: "<CFO prompt>", description: "CFO analysis")
+Task(subagent_type: "general-purpose", model: inherit-current-codex-model, prompt: "<CPO prompt>", description: "CPO analysis")
+Task(subagent_type: "general-purpose", model: inherit-current-codex-model, prompt: "<CTO prompt>", description: "CTO analysis")
+```
+
+Wait for all experts to return results before proceeding to synthesis.
+
+## Step 6: Synthesize
+
+**Do not skip this step.** The synthesis is the entire value of the council.
+
+After all experts report, create a synthesis document:
+
+```markdown
+# Council Session: [DATE]
+
+## Council Members
+[List of selected experts and their focus]
+
+## Context
+[Current metrics/state snapshot — brief]
+
+## [Expert 1 Name]
+[Key findings and recommendations]
+
+## [Expert 2 Name]
+[Key findings and recommendations]
+
+## Consensus (all agree)
+1. ...
+2. ...
+
+## Disagreements
+| Expert | Position | Argument |
+|--------|----------|----------|
+| ... | ... | ... |
+
+## Decisions
+_To be filled after discussion._
+```
+
+### Consensus Rules (evidence > votes)
+
+- **Triage, not averaging.** Sort expert outputs into: Consensus (2+ agree) / Expert-only (unique points per expert) / Disagreements. Adjudicate each disagreement explicitly — never split the difference.
+- **Evidence beats vote count.** One expert citing a verifiable number/source from the data block beats three experts agreeing from intuition. All experts run on the same base model — unanimous agreement without evidence is a shared-prior echo (consensus hallucination), not a truth signal. Tag such items `[CONSENSUS-only — no supporting data]` in the synthesis.
+- **MODEL_ECHO (if experts run on different models** via `gpt-agent`/`gemini-agent`): require first line `MODEL_ECHO=<model id>` in each expert reply — catches silent fallback where "diverse council" is secretly one model. Mismatched echo → mark that expert degraded.
+
+### Save Results
+
+Save to a logical location:
+- `docs/council-[DATE].md` — default
+- Or project-specific path if context suggests one
+
+## Common Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Picking roles without asking user | ALWAYS use AskUserQuestion first |
+| Using bash to launch experts | ONLY use Task tool with subagent_type: "general-purpose" |
+| Giving experts different data | Prepare ONE data block, paste into all prompts |
+| Gathering vanity metrics | Focus on project docs, strategy, actual metrics |
+| Too many experts (6+) | 3-4 is optimal for signal-to-noise |
+| Skipping synthesis | The synthesis IS the value — never skip |

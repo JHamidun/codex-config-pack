@@ -1,0 +1,2 @@
+# Bundle hashes must remain stable on Windows and Unix checkouts.
+* text eol=lf

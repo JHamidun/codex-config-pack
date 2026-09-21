@@ -1,0 +1,9 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Generated manifest lines contain validated SHA-256 digests, not credentials"
+condition = "AND"
+paths = ['''(^|[/\\])bundle[/\\]manifest\.json$''']
+regexTarget = "line"
+regexes = ['''^\s*"[^"]+": "[a-f0-9]{64}",?\s*$''']

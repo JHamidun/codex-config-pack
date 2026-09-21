@@ -1,0 +1,7 @@
+# Merge deliberately; do not overwrite an existing user configuration.
+# Legacy spelling is supported by both tested CLI generations.
+[agents]
+max_threads = 50
+
+# Models, reasoning effort, permissions and providers inherit user settings.
+# No paid API fallback, MCP server or hook is enabled by this pack.

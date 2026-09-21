@@ -1,0 +1,226 @@
+---
+name: "save-knowledge-base"
+description: "Сохраняет долговременную инструкцию/справочник в 4 уровня памяти под триггеры будущих сессий. Триггеры: «запомни эту инструкцию», «чтобы не забыл»."
+---
+
+# Codex execution contract
+
+This recipe was adapted from a pinned public source. Its domain guidance is reusable;
+its historical provider examples are not a live capability registry.
+
+1. Resolve `${CODEX_PACK_ROOT}` from the installed `hamidun-pack` entrypoint. It is a documentation root, not an environment variable automatically created by Codex.
+2. Native tool mapping: Claude `Read/Glob/Grep` means available file/search tools; `Bash` means the current shell; `Write/Edit/MultiEdit` means the supported patch/file tool. Claude `Task/Agent` means native collaboration with a concrete bounded subtask, only when delegation is authorized. Tool names inside old examples are illustrative, not callable API schemas.
+3. Claude slash commands become catalog recipes. They are not automatically registered as Codex slash commands. Pass arguments explicitly in the task.
+4. Do not execute files ending in `.source`, upstream hook examples, or paths containing `UPSTREAM_HOME`. They are quarantined reference code, NOT a validated runtime. A dependent workflow must first receive a reviewed Codex-owned adapter with explicit state/output roots and tests, or use an available native capability.
+5. Do not load secrets, session databases, private memory, or Claude model/provider defaults. Resolve integrations and named environment variables only when required and authorized.
+6. Model IDs, MCP names, permission snippets and scheduled-job examples in the source are historical. Check current supported equivalents. Never activate them just because a recipe mentions them.
+7. Prefer native image generation, documents and browser tooling where available. Do not install dependencies or authorize a third party as a side effect of reading this recipe.
+8. Preserve scope and output requirements. Mark unavailable dependencies clearly; do not claim a recipe passed a live test from a syntax/manifest check.
+
+## Adapted domain recipe
+
+
+# Save Knowledge Base — постоянная личная справочная память
+
+> Решает проблему: «у меня есть подробная инструкция/документация, я хочу чтобы Claude при любом релевантном запросе выдавал её содержимое, а не забывал». 4 уровня сохранения = триплекс резервирования.
+
+## Когда использовать
+
+| Триггер пользователя | Применить |
+|---|---|
+| «запомни эту инструкцию по Х» | ✅ |
+| «сохрани в память на потом» | ✅ |
+| «чтобы при запросе „X“ ты сразу выдавал эту инфу» | ✅ |
+| «сделай так чтобы не забыл» | ✅ |
+| «добавь в постоянную память» | ✅ |
+| «запомни мои контакты по проекту Y» | ✅ |
+| «вот мой досье по X — сохрани» | ✅ |
+| «запомни что я обещал/решил/выбрал» | ❌ — это `auto-learning` (обычная feedback/project память) |
+| «запомни этот код/паттерн» | ❌ — это `tg-post`-память или CLAUDE.md |
+
+**Главный критерий**: пользователь хочет, чтобы по конкретным **триггерным словам** в будущих сессиях я отдавал ему **готовое содержимое документа**, а не пытался вспомнить «из головы».
+
+## Что сохраняется (input)
+
+Пользователь даёт ОДНО из:
+1. **Путь к файлу/папке** с инструкцией (md, html, docx, pdf)
+2. **Текст** инструкции прямо в чате
+3. **Тему** (если документ уже в `${CODEX_PACK_ROOT}/library/projects/.../memory/`)
+
+Плюс уточняющие данные (если не дал — спросить):
+- **Название темы (slug, kebab-case)** — для имени файла, например `appliance-manual`, `tax-guide-2026`, `car-rental-notes`.
+- **Триггеры** (5–15 фраз/слов) — что должно срабатывать.
+- **Путь к полному документу** (если есть HTML/PDF) — для прямой ссылки.
+
+## 4 уровня сохранения
+
+### Уровень 1 — Topic-файл (детали)
+
+Создать `<memory>/<slug>.md`, где `<memory>` — каталог памяти текущего проекта.
+Имя папки Claude Code кодирует из пути проекта, у каждого своё — определи его один раз:
+`ls -dt ${CODEX_PACK_ROOT}/library/projects/*/memory | head -1`. Дальше по тексту `<memory>` = этот путь.
+
+**Первый запуск (памяти ещё нет).** На чистой установке команда выше вернёт пустоту:
+каталога `memory/` в проекте не существует, пока в него не записали первую заметку.
+Тогда `<memory>` собирается вручную — Claude Code кодирует путь проекта, заменяя
+`\` и `/` на `-`, а `:` выбрасывая (`<UPSTREAM_HOME>\work` → `C--Users-ann-work`):
+
+```bash
+PROJ=$(pwd | sed 's#:##; s#[\\/]#-#g')          # git bash / wsl
+mkdir -p ${CODEX_PACK_ROOT}/library/projects/"$PROJ"/memory
+touch  ${CODEX_PACK_ROOT}/library/projects/"$PROJ"/memory/MEMORY.md
+```
+
+`MEMORY.md` в первый раз пустой — это нормально, Уровень 2 создаст в нём секцию сам.
+
+```markdown
+---
+name: <slug>
+description: <одна строка — что это, ссылка на полный документ, ключевые факты>
+metadata:
+  type: reference
+---
+
+# <Название темы>
+
+**Полная инструкция:** `<абсолютный путь к HTML/PDF/DOCX>`
+**Markdown:** `<путь к .md если есть>`
+
+## Ключевые факты (для быстрых ответов без перечитывания)
+
+- факт 1 (даты, цифры, имена)
+- факт 2
+- ...
+
+## <Главные разделы — обычно 3-5>
+
+<выжимка из документа>
+
+## Контакты / источники
+
+<тел/email/имена>
+
+## Триггеры (когда применять эту память)
+
+- «триггер 1»
+- «триггер 2»
+- ...
+
+Когда видишь эти триггеры — открыть `<абсолютный путь>`, отвечать на основе содержимого.
+```
+
+### Уровень 2 — индекс MEMORY.md (auto-loaded)
+
+В `<memory>/MEMORY.md` найти секцию `## REFERENCE` (или `## TOOLS & SKILLS` для technical, или создать новую) и добавить ОДНУ строку:
+
+```markdown
+### <Название> (<дата YYYY-MM-DD>)
+See [<slug>.md](<slug>.md). <Полный путь HTML/PDF>. Ключевые факты в одной строке. Триггеры: «X», «Y», «Z», ...
+```
+
+**Ограничение**: вся строка ≤ 200 символов после `See ... — ` (MEMORY.md загружается первыми 200 строками).
+
+### Уровень 3 — routing.md (жёсткое правило)
+
+В `${CODEX_PACK_ROOT}/library/rules/routing.md` сразу после строки `|-----------|----------|------------|` (или в подходящую секцию) добавить:
+
+```markdown
+| <Категория> | "триггер1", "триггер2", "триггер3", ... | Читать `<абсолютный путь к полному документу>`. Memory: `<slug>.md` |
+```
+
+Это **жёсткий route** — грузится каждую сессию через `rules/`.
+
+### Уровень 4 — vector_memory.py learn (семантический поиск)
+
+```bash
+pip install qdrant-client          # один раз: скрипт держит базу на Qdrant в local-режиме
+python ${CODEX_PACK_ROOT}/library/tools/vector_memory.py learn "<длинное описание 500-1500 слов с ключевыми фактами, цифрами, именами, триггерами>" reference
+```
+
+Для случаев когда триггер не дословный («как почистить прибор» → найдёт нужный раздел мануала).
+База создаётся при первом `learn` в `${CODEX_PACK_ROOT}/library/vector-memory/` — предварительно ничего готовить не надо.
+
+## Алгоритм работы скилла
+
+```
+1. Спросить (если не дано):
+   - Что сохранять? (путь или текст)
+   - Какой slug? (предложить из контекста)
+   - Какие триггеры? (предложить 5-10 на основе содержимого)
+   - Какой путь к полному документу? (если применимо)
+
+2. Прочитать исходный документ (Read), выделить:
+   - 5-10 ключевых фактов (цифры, даты, имена, контакты)
+   - Главные разделы (заголовки H2)
+   - Контакты/источники
+   - Аварийные ситуации/чек-листы (если есть)
+
+3. Создать Уровень 1: topic-файл с frontmatter
+
+4. Обновить Уровень 2: добавить строку в MEMORY.md (Edit)
+
+5. Обновить Уровень 3: добавить строку в routing.md (Edit)
+
+6. Запустить Уровень 4: vector_memory.py learn (Bash)
+
+7. Сообщить пользователю что сохранено + показать триггеры
+```
+
+## Когда нужно ОБНОВЛЯТЬ существующую память
+
+- Если в `<memory>/` уже есть `<slug>.md` — **обновляем** (Edit), не создаём заново.
+- Если в MEMORY.md уже есть строка про эту тему — обновляем дату и факты.
+- В routing.md — проверяем что триггеры не дублируются (если триггер уже есть в другой строке — предупредить).
+- В vector_memory — `learn` создаёт НОВУЮ запись поверх старой (не страшно, search вернёт самую релевантную).
+
+## Авторитетность знания (из Kulaxyz/self-learning-skills)
+
+Сохраняй как **проверенное** знание только если выполнены все три критерия:
+
+1. **Реально проверено прогоном** — код запущен / команда выполнена / факт подтверждён источником, а не «выглядит правильно».
+2. **Названа неработающая альтернатива** — что пробовали и почему оно НЕ сработало (иначе это не знание, а первая попавшаяся опция).
+3. **Описана конкретная проблема, которую решает** — без привязки к проблеме заметка не найдётся в нужный момент.
+
+Не прошло все три — сохраняй с пометкой `status: pending` / «непроверено», не как канон.
+
+## Антипаттерны
+
+- ❌ **Не сохранять полный документ в memory/<slug>.md** — это раздует MEMORY.md загрузку. Только выжимку + ссылку на полный путь.
+- ❌ **Не использовать для эфемерных дел** — «я обещал созвон в пятницу» это auto-learning project memory, не reference.
+- ❌ **Не дублировать триггеры в routing.md** — если триггер уже есть в строке одной темы, не добавлять его же в строку смежной темы. Один триггер = одна route.
+- ❌ **Не делать slug с пробелами и кириллицей** — только `kebab-case-ascii`.
+
+## Пример работы
+
+**Пользователь:** «Сохрани вот эту инструкцию по налогам вашего региона. Файл `${HOME}/region-taxes.html`. Триггеры — налоги, дедлайны, отчётность, ваш бухгалтерский сервис.»
+
+**Скилл делает:**
+
+1. Read `${HOME}/region-taxes.html` → выделяет ключевые факты: ставки, дедлайны, реквизиты, ссылки на бухгалтерский сервис.
+2. Write `<memory>/region-taxes-2026.md` с выжимкой.
+3. Edit MEMORY.md → добавить строку в секцию REFERENCE.
+4. Edit routing.md → добавить route «налоги, дедлайны, отчётность, ваш бухгалтерский сервис → читать region-taxes.html».
+5. Bash `vector_memory.py learn "..."` reference.
+6. Отвечает: «Сохранил в 4 местах. Триггеры: ... В новой сессии при запросе „налоги“ я открою `region-taxes.html` и отвечу из него.»
+
+## Где находятся файлы памяти (для справки)
+
+```
+${CODEX_PACK_ROOT}/library/
+├── rules/
+│   └── routing.md              ← Уровень 3 (жёсткий route)
+└── projects/<проект>/          ← имя кодируется из пути проекта, у каждого своё
+    └── memory/
+        ├── MEMORY.md           ← Уровень 2 (индекс, грузится каждую сессию)
+        └── <slug>.md           ← Уровень 1 (детали топика)
+
+${CODEX_PACK_ROOT}/library/tools/
+└── vector_memory.py            ← Уровень 4 (семантический поиск на Qdrant local, есть в паке)
+```
+
+## Связано
+
+- `auto-learning` — для эфемерной памяти (feedback, project state)
+- `memory-search` — для проверки что уже сохранено
+- `memory-stats` — статистика по vector memory
+- `dream` — периодическая консолидация памяти

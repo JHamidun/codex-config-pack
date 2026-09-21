@@ -1,0 +1,137 @@
+---
+name: "ace-step"
+description: "AI-музыка локально (ACE-Step 1.5, на своей видеокарте), CLI scripts/generate.py. Триггеры: «сгенерируй музыку», «сделай трек», «напиши песню». Всё локально, без облачных сервисов."
+---
+
+# Codex execution contract
+
+This recipe was adapted from a pinned public source. Its domain guidance is reusable;
+its historical provider examples are not a live capability registry.
+
+1. Resolve `${CODEX_PACK_ROOT}` from the installed `hamidun-pack` entrypoint. It is a documentation root, not an environment variable automatically created by Codex.
+2. Native tool mapping: Claude `Read/Glob/Grep` means available file/search tools; `Bash` means the current shell; `Write/Edit/MultiEdit` means the supported patch/file tool. Claude `Task/Agent` means native collaboration with a concrete bounded subtask, only when delegation is authorized. Tool names inside old examples are illustrative, not callable API schemas.
+3. Claude slash commands become catalog recipes. They are not automatically registered as Codex slash commands. Pass arguments explicitly in the task.
+4. Do not execute files ending in `.source`, upstream hook examples, or paths containing `UPSTREAM_HOME`. They are quarantined reference code, NOT a validated runtime. A dependent workflow must first receive a reviewed Codex-owned adapter with explicit state/output roots and tests, or use an available native capability.
+5. Do not load secrets, session databases, private memory, or Claude model/provider defaults. Resolve integrations and named environment variables only when required and authorized.
+6. Model IDs, MCP names, permission snippets and scheduled-job examples in the source are historical. Check current supported equivalents. Never activate them just because a recipe mentions them.
+7. Prefer native image generation, documents and browser tooling where available. Do not install dependencies or authorize a third party as a side effect of reading this recipe.
+8. Preserve scope and output requirements. Mark unavailable dependencies clearly; do not claim a recipe passed a live test from a syntax/manifest check.
+
+## Adapted domain recipe
+
+
+# ACE-Step: AI Music Generation
+
+Generate music tracks locally using ACE-Step 1.5. Runs locally on your own GPU.
+
+## When to use
+
+Trigger on: "сгенерируй музыку", "сделай трек", "music generation", "ace-step", "напиши песню", "сгенерируй аудио", "background music", "soundtrack", "jingle"
+
+## Quick start
+
+```bash
+# Simple instrumental
+cd ~/your-ace-step && uv run python ${CODEX_PACK_ROOT}/library/skills/ace-step/scripts/generate.py "epic cinematic orchestral" --instrumental --duration 60
+
+# Song with auto-generated lyrics
+cd ~/your-ace-step && uv run python ${CODEX_PACK_ROOT}/library/skills/ace-step/scripts/generate.py "upbeat pop song about coding" --generate-lyrics --duration 120
+
+# Song with custom lyrics
+cd ~/your-ace-step && uv run python ${CODEX_PACK_ROOT}/library/skills/ace-step/scripts/generate.py "indie folk acoustic" --lyrics "[Verse 1]\nWalking down the road..." --duration 90
+
+# Use XL model for better quality (slower, uses CPU offload)
+cd ~/your-ace-step && uv run python ${CODEX_PACK_ROOT}/library/skills/ace-step/scripts/generate.py "jazz piano trio" --model acestep-v15-xl-turbo --instrumental --duration 60
+
+# Fast draft with no LM thinking
+cd ~/your-ace-step && uv run python ${CODEX_PACK_ROOT}/library/skills/ace-step/scripts/generate.py "techno beat" --no-thinking --instrumental --duration 30
+```
+
+## Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `caption` | required | Music style/description prompt |
+| `--lyrics` | "" | Song lyrics (with [Verse], [Chorus] tags) |
+| `--duration` | 120 | Length in seconds (10-600) |
+| `--instrumental` | false | No vocals |
+| `--bpm` | auto | Beats per minute |
+| `--key` | auto | Key/scale (e.g. "C major", "A minor") |
+| `--language` | en | Vocal language: en, zh, ja, ko, ru, etc |
+| `--model` | auto | DiT model (acestep-v15-turbo, acestep-v15-sft, acestep-v15-xl-turbo, acestep-v15-xl-sft) |
+| `--seed` | -1 | Random seed for reproducibility |
+| `--steps` | auto | Inference steps (more = better quality) |
+| `--no-thinking` | false | Skip LM (faster but lower quality) |
+| `--generate-lyrics` | false | Auto-generate lyrics from caption |
+| `--config` | "" | Use existing TOML config file |
+| `--json` | false | Output as JSON (for programmatic use) |
+
+## Models available
+
+| Model | Quality | Speed (16GB) | When to use |
+|-------|---------|-------------|-------------|
+| **acestep-v15-turbo** | Good | ~5-10s | Quick drafts, iteration |
+| **acestep-v15-sft** | Better | ~10-20s | Default, balanced |
+| **acestep-v15-xl-turbo** | Great | ~20-40s | Final renders (CPU offload) |
+| **acestep-v15-xl-sft** | Best | ~30-60s | Production quality (CPU offload) |
+
+## Output
+
+- Files saved to the user's Music folder, subdirectory `ace-step/`. The script prints the
+  resolved absolute path on every run — read it, do not assume `~/Music`.
+- On a localized Linux the folder is named «Музыка»/«Musique», not `Music`: the path is
+  taken from `xdg-user-dir MUSIC`. Override with `ACE_STEP_OUTPUT_DIR=/where/you/want`.
+- Format: WAV (lossless)
+- First run downloads model weights (~15-25 GB total from HuggingFace)
+
+## Lyrics format
+
+```
+[Verse 1]
+First verse lyrics here
+Second line of verse
+
+[Chorus]
+Chorus lyrics here
+
+[Verse 2]
+Second verse
+
+[Bridge]
+Bridge section
+
+[Outro]
+Final words
+```
+
+## Caption prompt tips
+
+Be specific about:
+- **Genre**: "melodic death metal", "lo-fi hip hop", "orchestral film score"
+- **Instruments**: "acoustic guitar, soft piano, ambient synths"
+- **Mood**: "melancholic, introspective, building to triumphant"
+- **Vocals**: "powerful female soprano", "raspy male baritone", "whispered"
+- **Tempo**: "slow ballad", "high-energy 140 BPM"
+- **Reference**: "in the style of Hans Zimmer film scores"
+
+## Gradio UI (alternative)
+
+```bash
+cd ~/your-ace-step && uv run acestep
+# Opens http://127.0.0.1:7860
+```
+
+## REST API (alternative)
+
+```bash
+cd ~/your-ace-step && uv run acestep-api
+# REST API on http://127.0.0.1:8001
+```
+
+## Architecture
+
+- **Location**: `~/your-ace-step/`
+- **Runtime**: Python 3.12 via uv (isolated venv)
+- **GPU**: your GPU, CPU offload (configure as needed) for XL models
+- **Tier**: tier6a (16-20GB config)
+- **LM models**: 0.6B, 1.7B (for lyrics gen and thinking)

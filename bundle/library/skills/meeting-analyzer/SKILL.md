@@ -1,0 +1,242 @@
+---
+name: "meeting-analyzer"
+description: "Транскрипт встречи → протокол: решения, action items, риски; вход tl;dv/Plaud/Spark или аудио. Триггеры: «саммари звонка», «разбери транскрипт»."
+---
+
+# Codex execution contract
+
+This recipe was adapted from a pinned public source. Its domain guidance is reusable;
+its historical provider examples are not a live capability registry.
+
+1. Resolve `${CODEX_PACK_ROOT}` from the installed `hamidun-pack` entrypoint. It is a documentation root, not an environment variable automatically created by Codex.
+2. Native tool mapping: Claude `Read/Glob/Grep` means available file/search tools; `Bash` means the current shell; `Write/Edit/MultiEdit` means the supported patch/file tool. Claude `Task/Agent` means native collaboration with a concrete bounded subtask, only when delegation is authorized. Tool names inside old examples are illustrative, not callable API schemas.
+3. Claude slash commands become catalog recipes. They are not automatically registered as Codex slash commands. Pass arguments explicitly in the task.
+4. Do not execute files ending in `.source`, upstream hook examples, or paths containing `UPSTREAM_HOME`. They are quarantined reference code, NOT a validated runtime. A dependent workflow must first receive a reviewed Codex-owned adapter with explicit state/output roots and tests, or use an available native capability.
+5. Do not load secrets, session databases, private memory, or Claude model/provider defaults. Resolve integrations and named environment variables only when required and authorized.
+6. Model IDs, MCP names, permission snippets and scheduled-job examples in the source are historical. Check current supported equivalents. Never activate them just because a recipe mentions them.
+7. Prefer native image generation, documents and browser tooling where available. Do not install dependencies or authorize a third party as a side effect of reading this recipe.
+8. Preserve scope and output requirements. Mark unavailable dependencies clearly; do not claim a recipe passed a live test from a syntax/manifest check.
+
+## Adapted domain recipe
+
+
+# Meeting Analyzer
+
+## Что делает
+
+Берёт транскрипт встречи и превращает его в чёткий протокол:
+**решения → action items с владельцами и дедлайнами → риски/блокеры → открытые вопросы → next steps.**
+
+Анализ выполняешь **ты (Claude), читая транскрипт** — не regex, не внешний LLM-API. Python в этом скилле нужен только для механики: получить транскрипт из источника, транскрибировать аудио, посчитать участие спикеров, залить action items в таск-систему. Всё «понимание» смысла делается моделью напрямую.
+
+## Когда использовать
+
+- Есть транскрипт/запись встречи, нужен протокол или саммари
+- Нужно вытащить action items с владельцами и сроками
+- Нужно зафиксировать принятые решения и риски
+- Нужен executive-summary для тех, кто не был на встрече
+
+Не для: живого стенографирования в реальном времени (это транскрипция → skill `deepgram`); поиска по архиву встреч (→ `/kb`; клиенты к конкретным рекордерам — tl;dv, Plaud, Spark — в пак не входят, транскрипт бери из экспорта своего сервиса).
+
+<!-- no-key-block -->
+## Ключа нет — что тогда
+
+Ключ `DEEPGRAM_API_KEY` нужен **только** шагу «Транскрипция аудио». Всё остальное —
+разбор, решения, action items, риски — работает с готовым текстом и ключа не требует.
+
+Без ключа:
+
+- транскрипт уже есть (tl;dv, Plaud, Spark, Zoom, ручная запись) — просто дай файл,
+  ключ не понадобится вовсе;
+- есть только аудио — расшифруй локально: `openai-whisper` из
+  `requirements-optional.txt`, `whisper запись.m4a --language ru --output_format txt`;
+- нужна разметка дикторов — `whisperx` оттуда же.
+
+Вызов Deepgram без ключа вернёт `401 INVALID_AUTH`, а не «ключ не задан», — не трать
+время на проверку формата аудио.
+
+## Источники транскрипта (реальные инструменты)
+
+Прежде чем анализировать — нужен текст. Откуда его взять:
+
+| Источник | Как получить | Инструмент |
+|----------|--------------|-----------|
+| **Рекордер встреч** (tl;dv, Plaud, Spark и т.п.) | Экспорт транскрипта из кабинета сервиса или его API | клиент к рекордеру в пак не входит — скачай экспорт и передай текст/файл |
+| **Поиск по всем встречам** | FTS5+BM25 по проиндексированным источникам (tldv/spark/gmail/outlook/telegram) | `python ${CODEX_PACK_ROOT}/library/tools/kb.py search "<q>"` |
+| **Аудио/видео файл** | Транскрипция с диаризацией | skill `deepgram` (см. ниже) |
+| **Просто текст** | Пользователь вставил транскрипт | — |
+
+### Транскрипция аудио (если источник — файл)
+
+Через Deepgram REST (устойчиво к версии SDK). Русский → модель `nova-3`:
+
+```bash
+# 1. Ужать аудио (3ч ≈ 86 МБ)
+ffmpeg -i meeting.mp4 -vn -ac 1 -ar 16000 -b:a 64k meeting.mp3
+```
+
+```python
+import requests, os
+key = os.getenv('DEEPGRAM_API_KEY')  # из ${CODEX_PACK_ROOT}/library/.credentials.master.env
+audio = open('meeting.mp3', 'rb').read()
+r = requests.post('https://api.deepgram.com/v1/listen',
+    params={'model': 'nova-3', 'language': 'ru', 'diarize': 'true',
+            'punctuate': 'true', 'smart_format': 'true',
+            'utterances': 'true', 'paragraphs': 'true'},
+    headers={'Authorization': f'Token {key}', 'Content-Type': 'audio/mpeg'},
+    data=audio, timeout=1800)
+utts = r.json()['results']['utterances']   # [{speaker, start, end, transcript}, ...]
+```
+
+`utterances` уже размечены по спикерам (`speaker` = 0,1,2…) с таймкодами `start/end` в секундах. Полный референс — skill `deepgram`.
+
+## Процедура анализа
+
+1. **Получи транскрипт** из источника выше. Если разметки спикеров нет, но встреча важна — попроси диаризацию (Deepgram `diarize=true`).
+2. **Прочитай транскрипт целиком** прежде чем писать выводы. Не выдёргивай фразы по шаблону — восстанови контекст.
+3. **Извлеки по каждой категории** (это делаешь ты, рассуждая по тексту):
+   - **Решения** — что окончательно согласовали (не обсуждения, а закрытые вопросы). Формулируй как факт: «Решили: X».
+   - **Action items** — задача + владелец + дедлайн. Владельца бери из того, кто взял на себя («я сделаю», «давай я»), или к кому адресовали. Если владелец/срок не назван явно — пометь `владелец: не назначен` / `срок: не задан`, НЕ выдумывай.
+   - **Риски / блокеры** — что мешает или угрожает; кто/что зависит.
+   - **Открытые вопросы** — то, что подняли, но не закрыли.
+   - **Next steps** — что происходит дальше, следующая встреча.
+4. **Разметь action items** приоритетом (H/M/L) и, если названо, привязкой к дате.
+5. **Собери отчёт** по шаблону ниже (executive для короткого, detailed для важного).
+6. **(Опционально) действия постобработки** — только по явной просьбе:
+   - Завести задачи → API твоей CRM (Битрикс24/amoCRM/HubSpot) или `/gtasks`
+   - Создать встречу-фоллоу-ап → `/gcalendar` или `/gmeet`
+   - Разослать саммари → `/gmail` (личная) / `/outlook` (рабочая)
+
+### Проверка честности перед выдачей
+
+- Каждое «решение» реально согласовано в тексте, а не предположено?
+- Каждый владелец action item произнесён в транскрипте? Если нет — `не назначен`.
+- Каждый дедлайн назван явно? Если нет — `срок не задан`, без выдуманных дат.
+- Не приписал ли реплику не тому спикеру (проверь при плохой диаризации)?
+
+## Участие спикеров (опционально, механика)
+
+Реальный рабочий расчёт баланса участия из размеченного транскрипта:
+
+```python
+from collections import Counter
+
+def analyze_participation(entries: list) -> dict:
+    """entries: [{"speaker": "Иван", "text": "..."}, ...]"""
+    turns = Counter(e["speaker"] for e in entries)
+    words = {}
+    for e in entries:
+        words[e["speaker"]] = words.get(e["speaker"], 0) + len(e["text"].split())
+    total = sum(words.values()) or 1
+    return {
+        sp: {"turns": turns[sp], "words": w, "percentage": round(w / total * 100, 1)}
+        for sp, w in words.items()
+    }
+```
+
+Полезно ловить перекос: один говорит 80% — встреча-монолог, решения могли не устояться.
+
+## Формат выхода
+
+### Executive summary (короткая встреча / для тех, кто не был)
+
+```markdown
+# Саммари встречи — [дата]
+**Участники:** [список] · **Длительность:** [—]
+
+## TL;DR
+[1 абзац: о чём была встреча и главный итог]
+
+## Решения
+1. ✅ [решение 1]
+2. ✅ [решение 2]
+
+## Action items
+| Приоритет | Задача | Владелец | Срок |
+|-----------|--------|----------|------|
+| 🔴 H | [задача] | @имя | [дата / не задан] |
+| 🟡 M | [задача] | не назначен | — |
+
+## Риски / блокеры
+- ⚠️ [блокер]
+
+## Next steps
+1. [шаг]
+2. Следующая встреча: [дата / не назначена]
+```
+
+### Detailed notes (важное совещание, есть повестка)
+
+```markdown
+# [Название встречи] — [дата]
+
+## Участники
+- [Имя] ([роль]) · Отсутствовал: [имя]
+
+## Обсуждение по темам
+### Тема A: [заголовок]
+- **Контекст:** [фон]
+- **Обсудили:** [ключевые точки]
+- **Решение:** [что решили / вопрос открыт]
+- **Action:** [что делать, кто, к какому сроку]
+
+## Решения
+1. [решение]
+
+## Action items
+### Срочные (эта неделя)
+- [ ] @имя: [задача] — до [дата]
+### На спринт
+- [ ] @команда: [задача] — до [дата]
+
+## Открытые вопросы
+1. [вопрос без ответа]
+
+## Parking lot (отложено)
+- [ ] [тема на потом]
+
+## Next steps
+1. [шаг]
+```
+
+Отдавай отчёт прямо в ответе (Markdown). Файл пиши только если пользователь попросил сохранить.
+
+## Пример
+
+**Вход** (фрагмент транскрипта):
+```
+Иван: По интеграции с 1С — я думаю, берём REST, не SOAP.
+Мария: Согласна, SOAP у нас нигде больше не используется.
+Иван: Ок, решили. Мария, сделаешь до пятницы черновик схемы обмена?
+Мария: Да, к пятнице накидаю.
+Пётр: Только учтите, доступ к тестовому 1С нам ещё не дали — это риск.
+```
+
+**Выход:**
+```markdown
+## Решения
+1. ✅ Интеграция с 1С — через REST (SOAP отклонён, нигде больше не используется).
+
+## Action items
+| Приоритет | Задача | Владелец | Срок |
+|-----------|--------|----------|------|
+| 🔴 H | Черновик схемы обмена с 1С | @Мария | пятница |
+
+## Риски / блокеры
+- ⚠️ Нет доступа к тестовому контуру 1С — блокирует разработку интеграции (озвучил Пётр).
+
+## Открытые вопросы
+1. Когда предоставят доступ к тестовому 1С? (владелец не назначен)
+```
+
+## Чек-лист
+
+- [ ] Транскрипт получен из источника (экспорт рекордера / kb / deepgram / вставлен)
+- [ ] Прочитан целиком до выводов
+- [ ] Решения = только реально согласованное
+- [ ] У каждого action item владелец и срок (или явно «не назначен» / «не задан»)
+- [ ] Риски и открытые вопросы выделены отдельно
+- [ ] Никаких выдуманных имён, дат, решений
+- [ ] Формат выбран под аудиторию (executive vs detailed)
+- [ ] Постобработка (задачи/письмо/календарь) — только если попросили
+```
