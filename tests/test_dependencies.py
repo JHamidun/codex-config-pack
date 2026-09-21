@@ -8,6 +8,23 @@ deps = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(deps)
 
 class DependencyTests(unittest.TestCase):
+    def test_pack_root_execution_context_is_resolved(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            target = root / 'library/get-shit-done/workflows/new-project.md'
+            target.parent.mkdir(parents=True)
+            target.write_text('# Workflow')
+            value = '${CODEX_PACK_ROOT}/library/get-shit-done/workflows/new-project.md'
+            refs = deps.references('@' + value)
+            self.assertEqual(refs, [(1, value)])
+            self.assertEqual(deps.resolve(root, root/'SKILL.md', value)['status'], 'present')
+
+    def test_pack_root_reference_cannot_escape_bundle(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            result = deps.resolve(root, root/'SKILL.md', '${CODEX_PACK_ROOT}/../outside.md')
+            self.assertEqual(result['status'], 'external-local-reference')
+
     def test_quarantined_code_is_not_reported_runnable(self):
         with tempfile.TemporaryDirectory() as d:
             root = Path(d)

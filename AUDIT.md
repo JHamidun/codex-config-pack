@@ -1,5 +1,9 @@
 # Dependency and release audit — 2026-09-21
 
+This report describes published baseline `b3a320b`. The subsequent local runtime
+development slice, including changed dependency counts, is tracked separately in
+[RUNTIME-MIGRATION.md](RUNTIME-MIGRATION.md). It is not a completed runtime release.
+
 ## Scope
 
 Source: public `JHamidun/claude-code-config-pack`, pinned at

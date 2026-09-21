@@ -8,11 +8,12 @@ import sys
 from urllib.parse import unquote
 
 LINK = re.compile(r'\[[^\]\n]*\]\(([^)\n]+)\)')
+PACK_PATH = re.compile(r'(\$\{CODEX_PACK_ROOT\}/[^\s`\"\'<>\[\]()]*)')
 SCRIPT = re.compile(r'(?<![\w/])((?:\.?\.?/)?(?:scripts|references|assets|tools)/[\w./-]+\.(?:py|ps1|sh|mjs|js|md|json|yaml|yml|png|svg|pdf|pptx|xlsx|docx))\b')
 
 def references(text):
     results = set()
-    for pattern in (LINK, SCRIPT):
+    for pattern in (LINK, SCRIPT, PACK_PATH):
         for match in pattern.finditer(text):
             target = match.group(1).split(' "', 1)[0].strip('<> ').split('#', 1)[0]
             if not target or re.match(r'[a-z]+:', target, re.I) or target.startswith('//'):
@@ -21,9 +22,13 @@ def references(text):
     return sorted(results)
 
 def resolve(root, origin, target):
+    base = origin.parent
+    if target.startswith('${CODEX_PACK_ROOT}/'):
+        target = target.removeprefix('${CODEX_PACK_ROOT}/')
+        base = root
     if any(c in target for c in ('$', '<', '>', '{', '}', '*')):
         return {'status': 'parameterized-reference'}
-    candidate = (origin.parent / target).resolve()
+    candidate = (base / target).resolve()
     if not candidate.is_relative_to(root.resolve()):
         return {'status': 'external-local-reference'}
     if candidate.is_file():

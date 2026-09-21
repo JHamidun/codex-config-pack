@@ -110,6 +110,7 @@ def install(bundle, target, dry_run=False, with_agents=False):
     planned = {}
     for name in manifest['files']:
         planned[(pack_root / safe_relative(name)).relative_to(root).as_posix()] = (bundle / safe_relative(name)).read_bytes()
+    planned[(pack_root / 'manifest.json').relative_to(root).as_posix()] = (bundle / 'manifest.json').read_bytes()
     router = (bundle / 'router/SKILL.md').read_text(encoding='utf-8').replace('${CODEX_PACK_ROOT}', pack_root.as_posix()).encode('utf-8')
     planned['skills/hamidun-pack/SKILL.md'] = router
     if with_agents:

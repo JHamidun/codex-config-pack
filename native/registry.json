@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "entries": {
+    "skill:skills/parse-git-status/SKILL.md": {
+      "mode": "native-helper",
+      "recipe": "native/recipes/parse-git-status.md",
+      "helper": "scripts/runtime.py",
+      "command": "git-status",
+      "verification": "offline-integration-tested",
+      "aliases": ["покажи изменения в репозитории", "разбери git status", "git working tree status"]
+    },
+    "skill:skills/csv-analysis/SKILL.md": {
+      "mode": "native-helper",
+      "recipe": "native/recipes/csv-analysis.md",
+      "helper": "scripts/runtime.py",
+      "command": "csv-profile",
+      "verification": "offline-integration-tested",
+      "aliases": ["проанализируй csv", "профиль csv", "проверь пропуски в csv", "profile csv data"]
+    },
+    "skill:skills/version-snapshots/SKILL.md": {
+      "mode": "native-helper",
+      "recipe": "native/recipes/version-snapshots.md",
+      "helper": "scripts/runtime.py",
+      "command": "snapshot",
+      "verification": "offline-integration-tested",
+      "aliases": ["сохрани версию файла", "snapshot перед правкой", "откати к снимку", "snapshot artifact"]
+    }
+  }
+}

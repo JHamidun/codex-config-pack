@@ -56,6 +56,27 @@ class BuildTests(unittest.TestCase):
         self.build()
         self.assertEqual(before, {name: (self.source / name).read_bytes() for name in self.files})
 
+    def test_shared_workflow_dependencies_are_shipped_without_execution(self):
+        additions = {
+            '.claude/get-shit-done/workflows/new-project.md': '# Project workflow\n',
+            '.claude/get-shit-done/LICENSE': 'MIT fixture\n',
+            '.claude/get-shit-done/bin/gsd-tools.cjs': 'throw Error("never execute");\n',
+            '.claude/schemas/bug-plan.schema.json': '{"type":"object"}\n',
+            '.claude/templates/plan.md': '# Plan template\n',
+            '.claude/workflows/review.md': '# Review workflow\n',
+        }
+        for name, text in additions.items():
+            path = self.source / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(text, encoding='utf-8')
+        self.files.update(additions)
+        self.build()
+        for name in additions:
+            relative = name.removeprefix('.claude/')
+            if relative.endswith('.cjs'):
+                relative += '.source'
+            self.assertTrue((self.output / 'library' / relative).is_file(), relative)
+
     def test_model_inherited_and_reviewer_read_only(self):
         self.build()
         agent = tomllib.loads((self.output / 'agents/pack-reviewer.toml').read_text(encoding='utf-8'))

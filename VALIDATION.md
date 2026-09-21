@@ -1,5 +1,23 @@
 # Validation — 2026-09-21
 
+## Local runtime development after published baseline
+
+- 54 tests passed on Windows/Python 3.13, including real installed CLI routing,
+  Git rename/Unicode fixtures, CSV validation, snapshot restore and tampering.
+- Type checks passed for six implementation modules.
+- Rebuilt bundle: 2798 manifested files and 573 entries; privacy checks passed.
+- Full dependency audit now includes 2087 files and pack-root execution references.
+- Gitleaks found no unresolved findings in this local development tree.
+- Full isolated install verified 2873 managed files; repeat installation was
+  idempotent. Uninstall removed 2872 unchanged files and preserved the deliberately
+  edited router. User configuration was not changed.
+- Automatic selection by an LLM, all-provider compatibility and cross-platform CI
+  for this development slice have not yet been validated.
+- See [RUNTIME-MIGRATION.md](RUNTIME-MIGRATION.md) for remaining work and scope.
+
+The sections below are the historical evidence for published baseline `b3a320b`,
+not a claim that its CI run covers later local changes.
+
 ## Executed locally
 
 - Mypy 1.19.0, five implementation modules, with

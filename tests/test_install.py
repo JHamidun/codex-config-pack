@@ -38,7 +38,7 @@ class InstallerTests(unittest.TestCase):
 
     def test_dry_run_has_no_writes(self):
         result = installer.install(self.bundle, self.target, dry_run=True)
-        self.assertEqual(result['new_or_updated'], 4)
+        self.assertEqual(result['new_or_updated'], 5)
         self.assertFalse(self.target.exists())
 
     def test_install_is_idempotent(self):
@@ -47,6 +47,8 @@ class InstallerTests(unittest.TestCase):
         self.assertEqual(result['new_or_updated'], 0)
         self.assertFalse((self.target / 'config.toml').exists())
         self.assertNotIn('${CODEX_PACK_ROOT}', (self.target / 'skills/hamidun-pack/SKILL.md').read_text())
+        installed_manifest = self.target / 'packs/hamidun-pack' / self.manifest['source_commit'] / 'manifest.json'
+        self.assertEqual(json.loads(installed_manifest.read_text()), self.manifest)
 
     def test_agents_are_opt_in(self):
         installer.install(self.bundle, self.target)
