@@ -26,7 +26,7 @@ def main():
     args = parser.parse_args()
     if not 1 <= args.limit <= 100:
         parser.error('--limit must be between 1 and 100')
-    print(json.dumps(search(args.root, args.query, args.limit), ensure_ascii=False, indent=2))
+    print(json.dumps(search(args.root, args.query, args.limit), ensure_ascii=True, indent=2))
 
 
 if __name__ == '__main__':
