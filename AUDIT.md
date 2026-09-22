@@ -8,7 +8,7 @@ build inputs. Personal configuration, memory, transcripts, credentials, locally
 merged skills and the author's current connector accounts are not exported.
 The source checkout remains read-only. Source scripts are inspected, never executed.
 
-This is a native-procedure runtime candidate, not proven full Claude runtime parity.
+This is a portable native runtime release, not proven full Claude runtime parity.
 [Runtime scope](RUNTIME-MIGRATION.md) and [connection requirements](CONNECTIONS.md)
 separate implementation, prerequisites and verification.
 
@@ -67,7 +67,7 @@ source does not prove a working dependency.
 
 The builder sanitizes contacts and machine paths in prose, metadata and quarantined
 code. Gitleaks 8.30.1 and the pack path/state/secret validator report no unresolved
-findings in the current candidate. The scanner binary is checksum-pinned; the only
+findings in the exported release tree. The scanner binary is checksum-pinned; the only
 special secret-scan exception is an exact generated SHA-256 manifest line.
 
 A separate network-disabled static audit of the router/native runtime completed,

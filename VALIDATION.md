@@ -70,6 +70,11 @@ matches the exact checkout, not merely the latest green badge. FFmpeg artifact t
 skip on CI runners without the executable; the local Windows run included that test.
 No live CAD/GPU engine test on those operating systems is implied by green CI.
 
+On macOS the system temporary path can pass through the `/var` symlink. The pack's
+intentional no-link boundary rejects it. CI therefore places fixtures in the explicit
+physical runner temporary directory; it does not weaken production link checks.
+For local tests on a similar host, select an existing physical directory with TMPDIR.
+
 No personal configuration, memory, transcripts, credentials or locally merged skills
 are included. The author's active Codex home is not modified by these isolated tests.
 Public attribution is retained deliberately. Scanners are bounded checks, not proof
