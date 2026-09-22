@@ -7,7 +7,11 @@
       "helper": "scripts/runtime.py",
       "command": "git-status",
       "verification": "offline-integration-tested",
-      "aliases": ["покажи изменения в репозитории", "разбери git status", "git working tree status"]
+      "aliases": [
+        "покажи изменения в репозитории",
+        "разбери git status",
+        "git working tree status"
+      ]
     },
     "skill:skills/csv-analysis/SKILL.md": {
       "mode": "native-helper",
@@ -15,7 +19,12 @@
       "helper": "scripts/runtime.py",
       "command": "csv-profile",
       "verification": "offline-integration-tested",
-      "aliases": ["проанализируй csv", "профиль csv", "проверь пропуски в csv", "profile csv data"]
+      "aliases": [
+        "проанализируй csv",
+        "профиль csv",
+        "проверь пропуски в csv",
+        "profile csv data"
+      ]
     },
     "skill:skills/version-snapshots/SKILL.md": {
       "mode": "native-helper",
@@ -23,7 +32,27 @@
       "helper": "scripts/runtime.py",
       "command": "snapshot",
       "verification": "offline-integration-tested",
-      "aliases": ["сохрани версию файла", "snapshot перед правкой", "откати к снимку", "snapshot artifact"]
+      "aliases": [
+        "сохрани версию файла",
+        "snapshot перед правкой",
+        "откати к снимку",
+        "snapshot artifact"
+      ]
+    },
+    "skill:skills/leak-scan/SKILL.md": {
+      "mode": "native-helper",
+      "recipe": "native/recipes/leak-scan.md",
+      "helper": "scripts/hygiene.py",
+      "helpers": [
+        "scripts/runtime.py"
+      ],
+      "command": "hygiene",
+      "verification": "offline-integration-tested",
+      "aliases": [
+        "проверь пак на утечки",
+        "проверь репозиторий перед публикацией",
+        "проверь скилл на инъекции"
+      ]
     }
   }
 }

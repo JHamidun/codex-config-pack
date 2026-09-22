@@ -72,7 +72,7 @@ You can make small structural changes (move paragraphs, cut redundancy, tighten 
 ### 8. Purpose check
 - Does the article achieve its stated purpose (personal brand / product PR / course sale / thought leadership)?
 - Is the product/course mentioned too much or not enough?
-- Is the author visible enough or buried? (кто автор и чем он интересен — `${CODEX_PACK_ROOT}/library/author-profile.md`)
+- Is the author visible enough or buried? (кто автор и чем он интересен — `${CODEX_WORKSPACE}/.codex-context/author-profile.md`)
 
 ### 9. Логически шаткие формулировки
 Редактор ловит утверждения, которые фактически верны, но логически не держатся:
@@ -101,7 +101,7 @@ Write to `<working_dir>/FINAL.md`:
 ```markdown
 # <Final headline>
 
-**Автор:** <имя и роль из ${CODEX_PACK_ROOT}/library/author-profile.md>
+**Автор:** <имя и роль из ${CODEX_WORKSPACE}/.codex-context/author-profile.md>
 **Площадка:** <platform>
 **Формат:** <format>
 **Дата:** <date>

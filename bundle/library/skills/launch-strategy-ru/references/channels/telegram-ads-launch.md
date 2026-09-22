@@ -78,6 +78,6 @@
 | Полная настройка TG Ads: кабинет, аукцион, пороги (500€/20 TON), Target Channels/Users, топики, подбор каналов (6 способов), RPP-прогноз, форматы и наценки CPM, CTR-бенчи, МТС Маркетолог Pro | `telegram-ads-pro-ru` |
 | Написание самих постов прогрева/анонса в канал голосом пользователя | `tg-post` (режим «анонс») |
 | Лендинг/квиз под прямую воронку + CRO | `page-cro-ru`, `tilda` |
-| Контекст продукта, ICP, цены, воронка | `${CODEX_PACK_ROOT}/library/business-context.md` (заведи из `templates/`) |
+| Контекст продукта, ICP, цены, воронка | `${CODEX_WORKSPACE}/.codex-context/business-context.md` (заведи из `templates/`) |
 | Метрики запуска (ROMI, CR, CAC) | `performance-analytics`, `full-funnel-analytics-ru` |
 | Назад — общая механика запуска (ORB, пять фаз, касания) | основной `SKILL.md` |

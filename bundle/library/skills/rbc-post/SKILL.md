@@ -26,7 +26,7 @@ its historical provider examples are not a live capability registry.
 редакцию, а не публикуется как есть. Разобрано на примере РБК и РБК Трендов; правила
 переносятся на Ведомости, Коммерсантъ, Forbes и любое издание с фактчекингом.
 
-Кто ты и о чём вправе говорить — **не в этом файле**, а в `${CODEX_PACK_ROOT}/library/author-profile.md`
+Кто ты и о чём вправе говорить — **не в этом файле**, а в `${CODEX_WORKSPACE}/.codex-context/author-profile.md`
 (шаблон: `${CODEX_PACK_ROOT}/library/templates/author-profile.md`). Навык знает только ремесло.
 Как ты звучишь на письме — `${CODEX_PACK_ROOT}/library/voice-sample.md`
 (шаблон: `${CODEX_PACK_ROOT}/library/templates/voice-sample.md`).
@@ -50,7 +50,7 @@ its historical provider examples are not a live capability registry.
 3. **Ни одного конкурента без корректности.** Называть можно, но только публично
    доступные факты. Никаких «они делают плохо» без ссылки на конкретный источник.
 4. **Клиенты и партнёры — только с письменным разрешением на КАЖДУЮ конкретную колонку.**
-   Кого называть можно, а кого нельзя, держи в `${CODEX_PACK_ROOT}/library/author-profile.md`, раздел
+   Кого называть можно, а кого нельзя, держи в `${CODEX_WORKSPACE}/.codex-context/author-profile.md`, раздел
    «О чём НЕ говорю». Разрешение даёт либо сам клиент письмом, либо юрист твоей компании —
    устного «да вроде можно» недостаточно: колонка живёт в индексе годами.
    Работает и обратное правило: **пустой список запретов означает «не заполнил»**, а не
@@ -64,7 +64,7 @@ its historical provider examples are not a live capability registry.
 
 ## Кто ты
 
-Заполняется из `${CODEX_PACK_ROOT}/library/author-profile.md`: имя, должность, компания, экспертная область,
+Заполняется из `${CODEX_WORKSPACE}/.codex-context/author-profile.md`: имя, должность, компания, экспертная область,
 о чём говорить нельзя. **Если файла нет — остановись и попроси его заполнить**, а не
 сочиняй «эксперта по AI»: в деловом издании выдуманная регалия проверяется за один звонок.
 

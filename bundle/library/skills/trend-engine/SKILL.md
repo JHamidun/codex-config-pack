@@ -41,7 +41,7 @@ its historical provider examples are not a live capability registry.
 ## Профиль канала — заполнить ДО первого прогона
 
 Скоринг считается **относительно твоего канала**, поэтому в начале работы нужны
-четыре вещи. Держи их в `${CODEX_PACK_ROOT}/library/business-context.md` (шаблон в `${CODEX_PACK_ROOT}/library/templates/`)
+четыре вещи. Держи их в `${CODEX_WORKSPACE}/.codex-context/business-context.md` (шаблон в `${CODEX_PACK_ROOT}/library/templates/`)
 или прямо в промпте:
 
 | Поле | Пример | Зачем |

@@ -27,7 +27,7 @@ You are the **Voice-keeper stage**. Your job is to make sure the draft **sounds 
 1. `${CODEX_PACK_ROOT}/library/voice-sample.md` — **сам голос**: 2-3 текста автора целиком плюс его
    правила. Это единственный источник «как пишет именно он». Файла нет — скажи прямо
    и не подставляй усреднённого «эксперта»: без образца стадия бессмысленна.
-2. `${CODEX_PACK_ROOT}/library/author-profile.md` — кто автор, о чём принципиально не пишет.
+2. `${CODEX_WORKSPACE}/.codex-context/author-profile.md` — кто автор, о чём принципиально не пишет.
 3. `${CODEX_PACK_ROOT}/library/skills/author-voice/anti-ai-tells.md` — общее ремесло: анти-ИИ-паттерны,
    ритм, структура. Это ремесло, не голос — не путать слои.
 

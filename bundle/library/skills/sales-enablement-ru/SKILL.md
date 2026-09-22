@@ -24,7 +24,7 @@ its historical provider examples are not a live capability registry.
 
 Создание sales-коллатерала, который реально используют продавцы: деки, one-pager'ы, отработка возражений, демо-скрипты, playbook. Порт `sales-enablement` под российский B2B — продажа **AI-воркшопов / AI-консалтинга / B2B-когорт обучающей программы** корп-ЛПР.
 
-**Перед стартом** читай `${CODEX_PACK_ROOT}/library/business-context.md` — разделы «Продукт» (value prop, отличия), «ICP» (персоны, боль, триггер), «Цены» и «Воронка». Файла нет — заведи из `${CODEX_PACK_ROOT}/library/templates/business-context.md`; без него материалы получатся про абстрактную компанию. Конкурентные данные не выдумывай — бери из `competitive-intelligence` / `competitive-analysis`.
+**Перед стартом** читай `${CODEX_WORKSPACE}/.codex-context/business-context.md` — разделы «Продукт» (value prop, отличия), «ICP» (персоны, боль, триггер), «Цены» и «Воронка». Файла нет — заведи из `${CODEX_PACK_ROOT}/library/templates/business-context.md`; без него материалы получатся про абстрактную компанию. Конкурентные данные не выдумывай — бери из `competitive-intelligence` / `competitive-analysis`.
 
 ## Принципы
 

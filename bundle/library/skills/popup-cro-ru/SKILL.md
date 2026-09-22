@@ -24,7 +24,7 @@ its historical provider examples are not a live capability registry.
 
 Попапы, которые конвертят, не раздражая и не убивая доверие к бренду. Порт `popups` из marketingskills: триггеры, типы, дизайн и частоты сохранены; согласие/приватность переведены с GDPR на 152-ФЗ.
 
-**Перед началом прочитай `${CODEX_PACK_ROOT}/library/business-context.md`** (заведи из `${CODEX_PACK_ROOT}/library/templates/business-context.md`, если файла ещё нет) — лид-магниты, trial продукта, карта воронки. **Частый приоритет — закрыть дыру воронки, где контент-портал не связан с продуктом/консультацией.** Если портал гонит трафик только на соцсети и блог — попапы должны захватывать email и сквозным CTA вести в середину воронки (trial продукта / бесплатная консультация).
+**Перед началом прочитай `${CODEX_WORKSPACE}/.codex-context/business-context.md`** (заведи из `${CODEX_PACK_ROOT}/library/templates/business-context.md`, если файла ещё нет) — лид-магниты, trial продукта, карта воронки. **Частый приоритет — закрыть дыру воронки, где контент-портал не связан с продуктом/консультацией.** Если портал гонит трафик только на соцсети и блог — попапы должны захватывать email и сквозным CTA вести в середину воронки (trial продукта / бесплатная консультация).
 
 ## Первичная оценка
 
@@ -79,7 +79,7 @@ its historical provider examples are not a live capability registry.
 
 - **Метрики:** impression rate, conversion rate (показы → сабмиты), close rate, engagement rate, time to close.
 - **Бенчмарки:** email-попап 2-5%; exit-intent 3-10%; click-triggered выше (10%+).
-- Данные — твоя веб-аналитика (Метрика/GA: цель на сабмит попапа; счётчик — в `${CODEX_PACK_ROOT}/library/business-context.md`) + таблица подписчиков.
+- Данные — твоя веб-аналитика (Метрика/GA: цель на сабмит попапа; счётчик — в `${CODEX_WORKSPACE}/.codex-context/business-context.md`) + таблица подписчиков.
 
 ## Формат вывода
 

@@ -56,5 +56,5 @@
 | Сегментация по работам/JTBD под выбранный рынок | `jtbd` |
 | Синтез самих интервью (Thematic Analysis, логистика) | `user-research-synthesis` |
 | Конкуренты ВНУТРИ уже выбранного рынка, battlecards | `competitive-analysis` |
-| Контекст продукта, ICP, цены, воронка пользователя | `${CODEX_PACK_ROOT}/library/business-context.md` (заведи из `templates/`) |
+| Контекст продукта, ICP, цены, воронка пользователя | `${CODEX_WORKSPACE}/.codex-context/business-context.md` (заведи из `templates/`) |
 | Дальше — сам запуск (ORB, пять фаз, касания) | основной `SKILL.md` |

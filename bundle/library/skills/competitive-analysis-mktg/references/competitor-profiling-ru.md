@@ -2,7 +2,7 @@
 
 Порт `competitor-profiling` из marketingskills: на вход — список URL конкурентов, на выход — структурированные профили. Переложено под RU-рынок (AI-образование и AI-консалтинг) и стек пользователя: Firecrawl → DataForSEO/Ahrefs заменены на **Яндекс Wordstat/Вебмастер + similarweb-analytics**, отзывы G2/Capterra → **otzovik/startpack/soware/CNews/Яндекс Бизнес**.
 
-**Перед началом:** `${CODEX_PACK_ROOT}/library/business-context.md` → раздел «Продукт» (кто вы, отстройка). Профили потом идут в `comparison-pages-ru.md` (страницы) и `sales-enablement-ru` (battlecard).
+**Перед началом:** `${CODEX_WORKSPACE}/.codex-context/business-context.md` → раздел «Продукт» (кто вы, отстройка). Профили потом идут в `comparison-pages-ru.md` (страницы) и `sales-enablement-ru` (battlecard).
 
 ## Принципы
 

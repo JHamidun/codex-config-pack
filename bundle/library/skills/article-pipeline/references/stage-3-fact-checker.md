@@ -52,7 +52,7 @@ For code snippets in technical articles:
 - If not — FAIL
 
 ### Step 4. Re-verify technical architecture claims
-- Confirm against the product's own architectural map (`CLAUDE.md` / README of the repo listed in `${CODEX_PACK_ROOT}/library/business-context.md`) and the real subdirectories.
+- Confirm against the product's own architectural map (`CLAUDE.md` / README of the repo listed in `${CODEX_WORKSPACE}/.codex-context/business-context.md`) and the real subdirectories.
 - Wrong stack (Python vs PHP, Starlette vs Laravel) = FAIL-FABRICATED.
 
 ### Step 5. Re-fetch public URLs

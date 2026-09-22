@@ -35,7 +35,7 @@ its historical provider examples are not a live capability registry.
 |---|---|---|
 | `BOOK_ROOT` — папка с `chapters/` и `book.json` | все скрипты читают только оттуда | да |
 | `${CODEX_PACK_ROOT}/library/voice-sample.md` | волна 6 (голос) без него бессмысленна — агент подставит усреднённого «эксперта» | для волны 6 — да |
-| `${CODEX_PACK_ROOT}/library/author-profile.md` | WHITELIST/BLACKLIST имён и компаний для волны 3 | для волны 3 — да |
+| `${CODEX_WORKSPACE}/.codex-context/author-profile.md` | WHITELIST/BLACKLIST имён и компаний для волны 3 | для волны 3 — да |
 | `pip install ebooklib python-docx markdown` | сборка EPUB+DOCX | для сборки |
 | Подписка/ключ модели для параллельных агентов | волны прогоняются субагентами | да |
 | Навык `perplexity` (своя подписка или `PERPLEXITY_API_KEY`) | фактчек за пейволом | опционально |

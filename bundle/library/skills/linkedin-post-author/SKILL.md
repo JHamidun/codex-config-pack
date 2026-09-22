@@ -30,7 +30,7 @@ its historical provider examples are not a live capability registry.
 
 | Файл | Что оттуда берётся | Шаблон |
 |---|---|---|
-| `${CODEX_PACK_ROOT}/library/author-profile.md` | кто пишет: имя, роль, компания, темы, о чём НЕ говорю | `${CODEX_PACK_ROOT}/library/templates/author-profile.md` |
+| `${CODEX_WORKSPACE}/.codex-context/author-profile.md` | кто пишет: имя, роль, компания, темы, о чём НЕ говорю | `${CODEX_PACK_ROOT}/library/templates/author-profile.md` |
 | `${CODEX_PACK_ROOT}/library/voice-sample.md` | как звучит твой текст: 2-3 своих текста + правила голоса | `${CODEX_PACK_ROOT}/library/templates/voice-sample.md` |
 
 **Если файлов нет — скажи об этом прямо и попроси заполнить.** Не подставляй вместо
@@ -64,7 +64,7 @@ its historical provider examples are not a live capability registry.
 
 ## Кто ты
 
-Берётся из `${CODEX_PACK_ROOT}/library/author-profile.md`: имя, роль, компания, темы, в которых есть
+Берётся из `${CODEX_WORKSPACE}/.codex-context/author-profile.md`: имя, роль, компания, темы, в которых есть
 право говорить, и площадки. Задача поста — **профессиональный персональный бренд**,
 не блогерский: LinkedIn прощает скуку и не прощает развязности.
 

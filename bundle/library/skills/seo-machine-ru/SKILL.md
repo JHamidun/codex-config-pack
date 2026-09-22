@@ -24,7 +24,7 @@ its historical provider examples are not a live capability registry.
 
 Полный конвейер производства SEO-контента под российский поиск и AI-выдачу. Портирован с `seomachine`, но все внешние интеграции заменены на твой стек: данные тянутся скиллом `yandex` (Метрика/Вебмастер/Wordstat), публикация — скиллом `tilda`. Аналитические модули переписаны под русский (морфология, читаемость, anti-AI на русском).
 
-**Перед любой задачей** прочитай `${CODEX_PACK_ROOT}/library/business-context.md` — разделы «Продукт», «ICP», «Позиционирование и запреты». Пишешь для личного блога, а не для продукта — читай вместо этого `${CODEX_PACK_ROOT}/library/author-profile.md`. Обоих файлов нет — заведи из `${CODEX_PACK_ROOT}/library/templates/`.
+**Перед любой задачей** прочитай `${CODEX_WORKSPACE}/.codex-context/business-context.md` — разделы «Продукт», «ICP», «Позиционирование и запреты». Пишешь для личного блога, а не для продукта — читай вместо этого `${CODEX_WORKSPACE}/.codex-context/author-profile.md`. Обоих файлов нет — заведи из `${CODEX_PACK_ROOT}/library/templates/`.
 
 ## Когда использовать
 
@@ -149,7 +149,7 @@ Bind только на `127.0.0.1` — не открывать наружу. П�
 - `context/target-keywords.md` — ядро по кластерам (пиллар/кластер/лонг-тейл + интент + текущие позиции).
 - `context/internal-links-map.md` — карта страниц для перелинковки.
 - `context/ai-citation-targets.md` — где хотим цитироваться (RU-поверхности).
-- Бренд-голос и конкуренты — НЕ дублировать: брать из `${CODEX_PACK_ROOT}/library/business-context.md`, `${CODEX_PACK_ROOT}/library/voice-sample.md` и `competitive-analysis`.
+- Бренд-голос и конкуренты — НЕ дублировать: брать из `${CODEX_WORKSPACE}/.codex-context/business-context.md`, `${CODEX_PACK_ROOT}/library/voice-sample.md` и `competitive-analysis`.
 
 ## Артефакты прогона (`examples/` в комплект не входит)
 

@@ -24,7 +24,7 @@ its historical provider examples are not a live capability registry.
 
 Реализация структурированных данных schema.org на своих сайтах, чтобы поисковики (Яндекс, Google) лучше понимали контент и показывали расширенные сниппеты, а AI-поверхности (Яндекс.Нейро, Alice, GigaChat) точнее цитировали. Порт `schema` из marketingskills: вокабуляр schema.org международный, адаптированы примеры под реальные сущности (YourFirstName, академия, воркшоп, news, блог) и заметка про Яндекс.
 
-**Перед началом прочитай `${CODEX_PACK_ROOT}/library/business-context.md`** — раздел «Продукт» (какие сущности вообще размечаем: организация, персона, курс, услуга, товар) и раздел «Цены» (суммы и URL страниц). Файла нет — заведи из `${CODEX_PACK_ROOT}/library/templates/business-context.md`.
+**Перед началом прочитай `${CODEX_WORKSPACE}/.codex-context/business-context.md`** — раздел «Продукт» (какие сущности вообще размечаем: организация, персона, курс, услуга, товар) и раздел «Цены» (суммы и URL страниц). Файла нет — заведи из `${CODEX_PACK_ROOT}/library/templates/business-context.md`.
 
 Здесь последствие жёстче обычного: разметка обязана совпадать с тем, что видно на странице. Выдуманная цена или несуществующий рейтинг в JSON-LD — это не «неточность», а повод для санкций поисковика. Чего не знаешь — помечай `[TODO]` и уточняй, а не подставляй правдоподобное.
 
@@ -88,7 +88,7 @@ its historical provider examples are not a live capability registry.
 
 | Нужно | Скилл |
 |------|-------|
-| Контекст сущностей, URL, цены | `${CODEX_PACK_ROOT}/library/business-context.md` (заведи из `templates/`) |
+| Контекст сущностей, URL, цены | `${CODEX_WORKSPACE}/.codex-context/business-context.md` (заведи из `templates/`) |
 | AEO/GEO (цитируемость в AI) | `seo-machine-ru` (`skills/seo-machine-ru/references/aeo-geo.md`) |
 | Валидация в Вебмастере | `yandex` |
 | Вставка JSON-LD на Tilda + публикация | `tilda` |

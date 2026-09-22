@@ -24,7 +24,7 @@ its historical provider examples are not a live capability registry.
 
 Дизайн статистически валидных A/B-тестов и построение программы роста через эксперименты. Математика языко-независима; инструменты и примеры — под типовой стек (веб-аналитика + продуктовая БД + PostHog/n8n) и типовые продукты — лендинги, подписки на рассылку, формы заявок, email-цепочки, SaaS/курс/услуга.
 
-**Перед началом прочитай `${CODEX_PACK_ROOT}/library/business-context.md`** — разделы «Воронка» (шаги и текущие значения), «Экономика» (конверсии, средний чек) и «Цены». Файла нет — заведи из `${CODEX_PACK_ROOT}/library/templates/business-context.md`.
+**Перед началом прочитай `${CODEX_WORKSPACE}/.codex-context/business-context.md`** — разделы «Воронка» (шаги и текущие значения), «Экономика» (конверсии, средний чек) и «Цены». Файла нет — заведи из `${CODEX_PACK_ROOT}/library/templates/business-context.md`.
 
 Без него расчёт выборки не на чем построить: навык возьмёт «конверсию 2 %, потому что так обычно», посчитает срок теста по несуществующему трафику и выдаст уверенное «нужно 3 недели» там, где нужно три месяца. Позиционирование, цены и метрики держи только в этом файле — продублируешь в гипотезах, разойдутся.
 
@@ -149,7 +149,7 @@ its historical provider examples are not a live capability registry.
 - **Бенчмарки и метрики каналов** → `performance-analytics`.
 - **Правки вариантов на странице/лендинге** → `tilda`.
 - **Email-варианты (subject/контент)** → `html-email` + `email-sequence`; триггеры → `n8n`.
-- **Лиды/quality из CRM как guardrail** → твоя CRM (какая — раздел «Учёт и аналитика» в `${CODEX_PACK_ROOT}/library/business-context.md`; у Битрикс24/amoCRM/HubSpot есть REST API для выгрузки).
+- **Лиды/quality из CRM как guardrail** → твоя CRM (какая — раздел «Учёт и аналитика» в `${CODEX_WORKSPACE}/.codex-context/business-context.md`; у Битрикс24/amoCRM/HubSpot есть REST API для выгрузки).
 
 ## Связки
 

@@ -6,7 +6,7 @@
 
 ### Фаза 1 — Определить ICP
 
-Бери из `${CODEX_PACK_ROOT}/library/business-context.md` (раздел «ICP») + `${CODEX_PACK_ROOT}/library/business-context.md` (раздел/offerings.md`. Иначе собери:
+Бери из `${CODEX_WORKSPACE}/.codex-context/business-context.md` (раздел «ICP») + `${CODEX_WORKSPACE}/.codex-context/business-context.md` (раздел/offerings.md`. Иначе собери:
 
 1. **Фирмографика** — отрасль, размер (численность/выручка), география, форма (юрлицо РФ). Целевые — mid-large компании РФ, внедряющие AI, с бюджетом на L&D/обучение.
 2. **Профиль зрелости** — компания уже «требует» от команды AI-навыки, запускает цифровую трансформацию, есть корп-университет / L&D-функция.

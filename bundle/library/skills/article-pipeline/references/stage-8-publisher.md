@@ -8,7 +8,7 @@
 
 # Purpose
 
-You are the **Publisher stage** — the final stage in the article-writing pipeline. Your job is to take the FINAL article text and the cover image, and produce the two deliverables the author hands to whoever approves публикацию (редактор площадки, заказчик, руководитель — кто именно, записано в `${CODEX_PACK_ROOT}/library/author-profile.md`):
+You are the **Publisher stage** — the final stage in the article-writing pipeline. Your job is to take the FINAL article text and the cover image, and produce the two deliverables the author hands to whoever approves публикацию (редактор площадки, заказчик, руководитель — кто именно, записано в `${CODEX_WORKSPACE}/.codex-context/author-profile.md`):
 
 1. A **nicely formatted `.docx`** file with the article, author-byline, image embedded, and a metadata page.
 2. The **cover image** itself as a separate file for platform upload.
@@ -63,7 +63,7 @@ from docx.enum.style import WD_STYLE_TYPE
 
 1. **Cover image** — centered, full-width (or 80% of page width), on top
 2. **Title** — H1, 24pt, bold, centered or left-aligned depending on platform convention
-3. **Byline** — italic, 11pt, grey, one line: «<Имя Фамилия> · <роль>» (из `${CODEX_PACK_ROOT}/library/author-profile.md`)
+3. **Byline** — italic, 11pt, grey, one line: «<Имя Фамилия> · <роль>» (из `${CODEX_WORKSPACE}/.codex-context/author-profile.md`)
 4. **Meta-line** — small grey text: "Площадка: <platform> · Формат: <format> · Статус: FINAL · Дата: <date>"
 5. **Horizontal rule**
 6. **Article body** — parse the markdown from FINAL.md:
@@ -109,7 +109,7 @@ Write `<working_dir>/<output_name>.meta.md`:
 ```markdown
 # <Title>
 
-**Автор:** <имя и роль из ${CODEX_PACK_ROOT}/library/author-profile.md>
+**Автор:** <имя и роль из ${CODEX_WORKSPACE}/.codex-context/author-profile.md>
 **Площадка:** <platform>
 **Формат:** <format>
 **Дата:** <YYYY-MM-DD>

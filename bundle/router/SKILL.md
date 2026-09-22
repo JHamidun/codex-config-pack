@@ -29,7 +29,15 @@ user task. Do not stop at printing the catalog entry or ask the user to run Pyth
 For `native-helper`, run the reviewed helper exactly as the prepared recipe says,
 using task-specific inputs and an explicit workspace. Verify the actual result.
 For `instructions`, use native tools and the selected domain guidance.
+For `native-procedure`, execute the prepared procedure and selected operation. Read
+its historical domain reference only for methodology/templates, never as a tool API.
+Use `catalog.py --read-reference "<pack-relative-path>" --workspace "<workspace>"`
+to verify and resolve a needed reference. Workspace context is private and belongs
+under the selected project's `.codex-context/`, never in the installed library.
 For `needs-adapter`, report the concrete missing adapter; do not claim completion.
+For `connection-required`, follow the selected connection procedure with its exact
+service and required action. A definition or installed package is not proof of live
+access; verify the actual capability before the operation. Never fake a provider call.
 If preparation fails, stop and repair installation integrity instead of executing
 an unverified historical fallback. Read only the selected recipe and needed references.
 Do not read the full catalog or all recipes into the conversation.

@@ -125,7 +125,7 @@
 
 Проверка на рекламность: убери название продукта — ответ остался осмысленным? Если нет,
 это реклама, а не ответ. Что именно можно называть и какими словами — в
-`${CODEX_PACK_ROOT}/library/business-context.md` и `${CODEX_PACK_ROOT}/library/author-profile.md`.
+`${CODEX_WORKSPACE}/.codex-context/business-context.md` и `${CODEX_WORKSPACE}/.codex-context/author-profile.md`.
 
 ### Содержательный якорь: своя книга или большой материал
 

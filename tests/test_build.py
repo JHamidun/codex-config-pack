@@ -64,6 +64,12 @@ class BuildTests(unittest.TestCase):
             '.claude/schemas/bug-plan.schema.json': '{"type":"object"}\n',
             '.claude/templates/plan.md': '# Plan template\n',
             '.claude/workflows/review.md': '# Review workflow\n',
+            '.claude/docs/architecture.md': '# Shared architecture reference\n',
+            '.claude/prompts/example.json': '{"prompt":"public example"}\n',
+            '.claude/scripts/check.py': 'raise RuntimeError("never execute");\n',
+            '.claude/tools/client.py': 'raise RuntimeError("never execute");\n',
+            '.claude/hooks/guard.js': 'throw Error("never execute");\n',
+            '.claude/mcps/example/server.py': 'raise RuntimeError("never execute");\n',
         }
         for name, text in additions.items():
             path = self.source / name
@@ -73,9 +79,19 @@ class BuildTests(unittest.TestCase):
         self.build()
         for name in additions:
             relative = name.removeprefix('.claude/')
-            if relative.endswith('.cjs'):
+            if Path(relative).suffix in builder.CODE:
                 relative += '.source'
             self.assertTrue((self.output / 'library' / relative).is_file(), relative)
+
+    def test_every_tracked_configuration_file_is_accounted_for(self):
+        self.files['.claude/.refcheck-coverage'] = 'not-runtime-data'
+        (self.source / '.claude/.refcheck-coverage').write_text('not-runtime-data', encoding='utf-8')
+        self.build()
+        report = json.loads((self.output / 'compatibility.json').read_text(encoding='utf-8'))
+        expected = {name for name in self.files if name.startswith('.claude/')}
+        observed = {row['source'] for row in report['source_files']}
+        observed.update(row['path'] for row in report['omissions'])
+        self.assertEqual(observed, expected)
 
     def test_model_inherited_and_reviewer_read_only(self):
         self.build()

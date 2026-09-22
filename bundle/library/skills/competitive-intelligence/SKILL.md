@@ -56,7 +56,7 @@ Research your competitors extensively and generate an **interactive HTML battlec
 
 ## Getting Started
 
-**Read `${CODEX_PACK_ROOT}/library/business-context.md` first** — sections "Product" (what you sell, how you differ, and honestly what rivals do better), "Positioning" (who you're compared against), and "Pricing". No such file? Create it from `${CODEX_PACK_ROOT}/library/templates/business-context.md` — it's the pack-wide context file, in Russian, and this skill reads the same one.
+**Read `${CODEX_WORKSPACE}/.codex-context/business-context.md` first** — sections "Product" (what you sell, how you differ, and honestly what rivals do better), "Positioning" (who you're compared against), and "Pricing". No such file? Create it from `${CODEX_PACK_ROOT}/library/templates/business-context.md` — it's the pack-wide context file, in Russian, and this skill reads the same one.
 
 Without it a battlecard is a list of competitor facts with no "us" column: your reps get a comparison table that never says why we win, and the "what they do better" row — the one that actually survives a live objection — will be blank.
 

@@ -1,83 +1,96 @@
-# Dependency and release audit — 2026-09-21
+# Dependency and release audit — 2026-09-22
 
-This report describes published baseline `b3a320b`. The subsequent local runtime
-development slice, including changed dependency counts, is tracked separately in
-[RUNTIME-MIGRATION.md](RUNTIME-MIGRATION.md). It is not a completed runtime release.
-
-## Scope
+## Scope and provenance
 
 Source: public `JHamidun/claude-code-config-pack`, pinned at
-`e9f5f9e019d3c6dc9fe83b00499f223b5f9e6d32`. No personal Codex/Claude
-configuration, credentials, sessions, memory, or local merged skills are inputs.
-The builder selects tracked public source files only; it does not run upstream code.
+`e9f5f9e019d3c6dc9fe83b00499f223b5f9e6d32`. Only tracked public source files are
+build inputs. Personal configuration, memory, transcripts, credentials, locally
+merged skills and the author's current connector accounts are not exported.
+The source checkout remains read-only. Source scripts are inspected, never executed.
 
-This is a documentation-first port, **not a working replacement for every integration**.
+This is a native-procedure runtime candidate, not proven full Claude runtime parity.
+[Runtime scope](RUNTIME-MIGRATION.md) and [connection requirements](CONNECTIONS.md)
+separate implementation, prerequisites and verification.
+
+## Complete source accounting
+
+All **5138** tracked files under the public `.claude/` tree are accounted for:
+
+- 2779 preserved reference files, including 786 quarantined code files.
+- 2060 raw n8n exports excluded because pinned example data cannot safely be removed
+  by a generic text substitution.
+- 27 files excluded from two skills without an established redistribution grant
+  (`doc-coauthoring`, `building-an-exo`). Public availability is not a license.
+- 266 binary/large/unsupported assets explicitly listed for separate dependency review.
+- One state/secret-named file excluded without importing its contents.
+- Five root runtime/configuration/coverage files explicitly excluded; MCP/hook names
+  are indexed as inactive. Their original configuration is not installed.
+
+No source file disappears silently from this inventory. Source hashes, transformed
+paths and exclusions appear in [bundle/compatibility.json](bundle/compatibility.json).
+Compared with the preceding runtime build, no previously distributed path was removed.
+Newly retained shared tools, scripts, hooks, docs, prompts and MCP source resolve
+references that were previously missing; they do not become executable adapters.
 
 ## Dependency coverage
 
-- All 573 distributed entries covered: 344 skills, 156 command recipes, 73 agent profiles.
-- 134 entries have no detected runtime blockers; 439 require runtime review.
-- Whole skill directories plus transitive local Markdown references are inspected.
-- 711 code files remain reference-only `.source`; 343 Python sources parse successfully,
-  but are neither imported nor executed by the audit.
-- Local links distinguish present files, quarantined code, unresolved/illustrative links,
-  parameterized locations, and dependencies outside the bundle.
-- Import names and candidate environment-variable names are recorded, never values.
-  Import names are not guaranteed PyPI package names; examples and local modules can appear.
-- Seventeen MCP configurations and two hook event types remain uninstalled.
+- 573 entries: 344 skills, 156 command recipes, 73 native agent profiles.
+- 2140 relevant files statically inspected, including transitive Markdown references.
+- 387 Python reference sources parse successfully; none is imported or executed.
+- Reference inventory: 1326 present, 1078 reference-code-only, 902 missing/illustrative,
+  35 parameterized and 14 external-local references.
+- Import candidates and environment variable **names**, never secret values, are recorded.
+  Import names are not a verified list of installable packages.
+- Historical source flags: 124 instructions-adapted and 449 requires-runtime-review.
+  These are separate from native execution routes: 464 procedures, 4 helper entries,
+  105 connection/engine contracts. No entry claims a completed live provider test.
 
-See [the full dependency map](bundle/dependency-audit.json) for per-entry closure,
-file/line references and blockers. Missing links in examples can be false positives;
-the report does not assert that every unresolved string is a production failure.
+See [bundle/dependency-audit.json](bundle/dependency-audit.json) for file/line evidence.
+Missing links in examples can be false positives. Conversely, a valid link or parsed
+source does not prove a working dependency.
 
-## Corrections since the initial structural port
+## Native changes reviewed
 
-1. The first dependency detector inspected recipe text, not its complete linked resources.
-   Dependency classification now includes file trees and transitive Markdown links.
-2. Privacy normalization previously did not cover quarantined code. It now covers source
-   references as well as prose and metadata. These sanitized sources are not runtime adapters.
-3. Raw n8n workflow exports can contain pinned example data, contacts and service identifiers.
-   All 2060 exports are excluded rather than claiming a regex can reliably anonymize them.
-4. The source license explicitly withholds a grant for `doc-coauthoring` and
-   `building-an-exo`. Their 27 files are excluded. Public availability alone is not treated
-   as permission to redistribute. Original license/notice attribution is retained.
-5. Gitleaks 8.30.1 supplements the custom path/secret scan. The scanner binary was checked
-   against its upstream SHA-256 checksum. Its only project-specific exception is an exact
-   generated-manifest line containing a verified 64-character hexadecimal SHA-256 digest.
-   Source, scripts, documentation, and other JSON files are not excluded from secret scanning.
+- Agent profiles load a bounded native procedure with preserved domain guidance,
+  inherited models and the existing explicit read-only reviewer policy.
+- Every GSD command has a native operation; project initialization, inspection and
+  continuation have a reviewed local helper rather than a copied `gsd-tools` command.
+- Business/author context writes target the user's selected workspace, not the pack.
+- Local memory accepts only explicit curated notes; no automatic transcript ingestion,
+  source-home access, embedding service or background job is introduced.
+- Preparation verifies manifest membership before reading a document and checks all
+  recipe/helper hashes. Historical `.source` execution remains forbidden by contract.
+- Install/uninstall are additive, idempotent, link-aware and preserve user modifications.
+  The pack never merges credentials, enables hooks or installs all providers implicitly.
 
-## Installed versus optional dependencies
+## Privacy and security checks
 
-The installer and catalog search need Python 3.11+ and its standard library only.
-Rebuilding and build tests additionally need pinned `PyYAML==6.0.3`.
-An OSV query for that exact version returned no listed advisories on the audit date;
-this is not a guarantee against unknown vulnerabilities.
+The builder sanitizes contacts and machine paths in prose, metadata and quarantined
+code. Gitleaks 8.30.1 and the pack path/state/secret validator report no unresolved
+findings in the current candidate. The scanner binary is checksum-pinned; the only
+special secret-scan exception is an exact generated SHA-256 manifest line.
 
-Imports such as requests, Pillow, NumPy, provider SDKs, Playwright and Telethon occur
-in optional historical recipes. They are **not** installed globally or declared as one
-giant runtime environment. Each requested integration needs its own pinned environment,
-native-tool decision, credentials and a real smoke test. npm manifests in reference
-material are likewise not installed or claimed vulnerability-free.
+A separate network-disabled static audit of the router/native runtime completed.
+Its 19 heuristic findings were reviewed: defensive credential denylists, fixed
+read-only Git invocations, inactive public MCP indexing and declared routing metadata.
+No unresolved runtime issue was identified by this bounded review. It was a primary-
+agent review, not an independent security certification. Historical reference code
+is not covered by a claim that it is safe to run.
 
-## Runtime adaptation decisions
+## Runtime dependencies
 
-- Agents use native TOML `name`, `description`, `developer_instructions`, inherited models,
-  and read-only mode for selected reviewers. No guessed model-alias translation.
-- Commands are searchable recipes, not registered Claude slash commands.
-- Legacy tool names are mapped conceptually to available native tools, not replayed.
-- Source paths and scripts are not activated by a global rename of `.claude` to `.codex`.
-- One discoverable router loads a selected recipe on demand; optional agents remain opt-in.
-- Install/uninstall preserve existing configuration and user edits; provider authentication,
-  hooks, paid calls, scheduled tasks and background services are never enabled implicitly.
+Installation, catalog routing and reviewed offline helpers use Python 3.11+ standard
+library only; Git status additionally requires Git. Building/tests need pinned
+`PyYAML==6.0.3`. No bulk pip/npm install of historical dependencies occurs.
 
-Native formats checked against [custom-agent documentation](https://learn.chatgpt.com/docs/agent-configuration/subagents),
-[skill loading](https://learn.chatgpt.com/docs/build-skills) and
-[configuration reference](https://learn.chatgpt.com/docs/config-file/config-reference).
+Optional accounts, local engines, GPU models, browser/document tools and third-party
+SDKs must be available for the selected action. Nine specialized recipes still need
+reviewed adapters as well as their engines. Existing native connectors are preferred,
+but an account lookup does not prove all operations or scopes.
 
-## Boundaries
+## Limits
 
-No real API workflow has been verified end to end. Syntax, hashes, tests and secret scans
-do not prove full functional compatibility or the absence of every possible sensitive datum.
-Published author names, repository provenance, third-party attribution, and example.com
-addresses remain intentionally. Private histories, personal files and secrets are not inputs.
-See [VALIDATION.md](VALIDATION.md) for the exact executed checks.
+No live test of every recipe/provider, technical Claude-hook equivalence, exhaustive
+DLP guarantee or security audit of all historical dependencies is claimed. Public
+upstream authorship, repository URLs and third-party license attribution are retained
+intentionally. Exact executed checks are in [VALIDATION.md](VALIDATION.md).

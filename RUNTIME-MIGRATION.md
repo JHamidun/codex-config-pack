@@ -2,50 +2,77 @@
 
 ## Acceptance target
 
-After installation, an ordinary user prompt selects a relevant workflow, resolves
-its current prerequisites, performs the requested work using native tools or reviewed
-helpers, and verifies a real artifact or readback. A catalog hit, renamed command,
-manifest validation or schema check alone does not meet this target.
+An ordinary user prompt selects a relevant workflow, resolves its prerequisites,
+performs the requested work with native tools or reviewed helpers, and verifies an
+actual artifact/readback. A catalog match, renamed command or valid manifest alone
+does not meet that target. This public pack must never depend on its author's private
+configuration, memory, transcripts, credentials or machine paths.
 
-The public pack must remain separate from personal configuration, memory, history,
-credentials and machine-specific paths. External services need user-supplied access;
-installation must not authorize services or silently enable paid providers.
+## Implemented
 
-## Current implemented slice
+All 573 catalog entries have an explicit execution path; none silently falls back
+to executing the historical Claude scripts:
 
-- Russian prompt aliases and exact workflow names rank reviewed recipes first.
-- `catalog.py --prepare <id>` resolves one recipe, checks catalog/recipe/helper hashes,
-  and replaces the installation-root placeholder. It never runs historical code.
-- The installed pack now retains its integrity manifest for this runtime check.
-- Three standard-library helper workflows run without provider credentials:
-  Git porcelain-v2 status; bounded CSV profiling; snapshot creation and atomic restore.
-- Tests use a real temporary Git repository, CSV fixtures, artifact mutations, an
-  isolated installation, installed command-line tools and checksum tampering.
-- Shared GSD workflows, schemas, templates and workflow references omitted by the
-  first builder are included. Their code remains quarantined pending review.
-- The dependency resolver now understands pack-root execution-context references,
-  including containment checks, instead of overlooking those dependencies.
+| Mode | Entries | What is implemented | What is not proved |
+|---|---:|---|---|
+| `native-procedure` | 464 | Codex execution procedures plus preserved domain guidance; explicit operations for every GSD command | Independent, live end-to-end execution of every recipe |
+| `native-helper` | 4 | Git status, CSV profiling, version snapshots/restore, redacted hygiene scan | Every possible request in those domains; a clean scan is not a security certificate |
+| `connection-required` | 105 | Exact service/engine requirements, native capability discovery, authorization and readback protocol | A bundled SDK, a connected account or a tested provider action; 9 specialized engines additionally need reviewed adapters |
 
-Coverage: 3 `native-helper`, 121 `instructions`, 449 `needs-adapter` entries.
-The helper tests cover the concrete supported operations, not every possible request
-in the broader CSV/Git/snapshot domains. No claim of automatic LLM selection testing.
+The builder retains original methodology, templates and references. Full bodies
+remain cold; the model loads a selected procedure and only the domain references it
+needs. Native agent profiles prepare an exact catalog ID rather than loading obsolete
+Claude tool contracts as active instructions. Models and permissions are inherited.
 
-## Remaining work
+### Reviewed offline helpers
 
-1. Port GSD orchestration and its project-state helpers, with explicit project roots,
-   no source-home writes, inherited models and authorized collaboration only.
-2. Review each remaining dependency closure. Separate genuinely required runtime
-   dependencies from historical examples; do not bulk-relabel entries as working.
-3. Replace provider-neutral media, documents and browser instructions with native
-   capability paths; maintain provider-specific paths only where the user needs them.
-4. Give service integrations a reviewed adapter or native connector plus explicit
-   setup, capability checks and redacted failure reporting. Test read-only calls
-   before independently authorized mutations.
-5. Adapt memory/state/hooks without copying private data or treating Claude payloads
-   as interchangeable with Codex events.
-6. Validate realistic prompts through Codex itself in isolation, including routing,
-   artifact correctness, unavailable dependencies and permission boundaries.
-7. Re-run cross-platform CI and the privacy audit before publishing the runtime release.
+- `runtime.py`: read-only Git porcelain-v2 status, bounded CSV profiling, explicit-file
+  snapshots and atomic restore with a pre-restore snapshot.
+- `planning.py`: initialize from an explicit project brief, inspect project-state
+  files and append continuation checkpoints. It never infers verified completion from
+  a summary file, resets an existing project, commits or schedules background work.
+- `memory.py`: explicit curated-note ingestion, provenance, bounded lexical retrieval
+  and an explicit relationship graph. It does not import chats or create an embedding
+  index. No private source is discovered automatically.
+- `hygiene.py`: bounded read-only scans with redacted findings, optional explicit
+  identity literals and injection heuristics. It is not an exhaustive DLP product.
 
-The published baseline and ZIP remain the previous audited release until this
-development work is explicitly released. Do not describe this slice as full parity.
+Business and author context now belongs in the selected workspace's `.codex-context/`,
+not in the installed library. Blank questionnaires ship without personal contents.
+The dependency inventory includes shared GSD, scripts, tools, hooks, docs, prompts,
+MCP reference code and the full public configuration-file accounting. Historical code
+stays `.source`; preserving it does not enable it or prove its compatibility.
+
+### Verification performed
+
+Installed command-line tests exercise real temporary Git repositories, CSV data,
+file mutation/restore, planning state, continuation checkpoints and curated-memory
+query/graph. Tests also cover tampering, path escapes, secret redaction, Unicode,
+transient Windows locks, idempotency and preserving user edits on uninstall.
+
+Native Codex discovery and deterministic catalog routing are different from testing
+automatic model selection. See [VALIDATION.md](VALIDATION.md) for exact evidence.
+
+## Explicit remaining boundaries
+
+1. **Connections.** A public configuration cannot distribute accounts, OAuth grants,
+   API credits, servers, local applications or model weights. Per-service scope is
+   listed in [CONNECTIONS.md](CONNECTIONS.md). A profile read is not an end-to-end test
+   of sending, exporting, generating or publishing.
+2. **Specialized engines.** Nine recipes still need an engine and reviewed project-
+   owned adapter. This is actual remaining adaptation work, not merely a login step.
+   CAD COM, GPU music generation, segmentation/OCR and local PII filtering cannot be
+   certified by a generic media instruction.
+3. **Host differences.** A CLI does not automatically supply the Desktop browser,
+   documents, media, task-management or automation tools. Native capability absence
+   is reported rather than bypassed through private databases or subscription tokens.
+4. **Memory and hooks.** Lexical notes/graph are not the old semantic-history system.
+   Claude hooks are not registered as Codex hooks. Guard rules live in native guidance;
+   no technical event-level equivalence is claimed.
+5. **Independent workflow evaluation.** All recipes have preparation/integrity checks,
+   but they have not all been selected and executed by fresh model sessions. A repeated
+   self-review is not independent evaluation or cross-model consensus.
+
+Therefore this version is a native-procedure runtime candidate, **not a claim that
+the entire Claude installation works out of the box unchanged**. Remaining adapter
+and live-verification gaps must stay visible in release descriptions.

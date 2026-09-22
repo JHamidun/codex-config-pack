@@ -81,7 +81,7 @@ python ${CODEX_PACK_ROOT}/library/skills/habr-post/templates/security_scan.py FI
 ```yaml
 voice_corpus:
   - ${CODEX_PACK_ROOT}/library/voice-sample.md       # ГЛАВНОЕ: твои тексты. Шаблон — ${CODEX_PACK_ROOT}/library/templates/voice-sample.md
-  - ${CODEX_PACK_ROOT}/library/author-profile.md     # регалии, стоп-лист, тон. Шаблон — ${CODEX_PACK_ROOT}/library/templates/author-profile.md
+  - ${CODEX_WORKSPACE}/.codex-context/author-profile.md     # регалии, стоп-лист, тон. Шаблон — ${CODEX_PACK_ROOT}/library/templates/author-profile.md
   - skills/de-ai-ify/SKILL.md       # список штампов, общий для всех площадок
   - reference_articles:   # 2-3 СВОИ опубликованные статьи как образец формата Habr
       - <путь к своей статье 1>/FINAL.md

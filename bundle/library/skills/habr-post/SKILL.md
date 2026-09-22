@@ -26,7 +26,7 @@ its historical provider examples are not a live capability registry.
 
 | Нужно | Зачем | Без этого |
 |---|---|---|
-| `${CODEX_PACK_ROOT}/library/author-profile.md` | кто автор, регалии, площадки, о чём молчим | статья выйдет от безликого «эксперта»; шаблон — `${CODEX_PACK_ROOT}/library/templates/author-profile.md` |
+| `${CODEX_WORKSPACE}/.codex-context/author-profile.md` | кто автор, регалии, площадки, о чём молчим | статья выйдет от безликого «эксперта»; шаблон — `${CODEX_PACK_ROOT}/library/templates/author-profile.md` |
 | `${CODEX_PACK_ROOT}/library/voice-sample.md` | 2-3 твоих текста как образец голоса | voice-keeper не с чем сверять, статья звучит как ИИ; шаблон — `${CODEX_PACK_ROOT}/library/templates/voice-sample.md` |
 | Доступ к своему репо/логам/мониторингу | правило №0: цифры и код только из источника | писать нечего — см. правило №0 |
 | `GOOGLE_API_KEY` (платный, ai.google.dev) | обложка через `templates/gen_cover.py` | обложку делаешь сам, остальной пайплайн работает |
@@ -94,7 +94,7 @@ python templates/security_scan.py FINAL.md --patterns /path/to/my.json
 
 ## Кто ты
 
-Читается из `${CODEX_PACK_ROOT}/library/author-profile.md`: имя, роль, регалии для byline, площадки, стоп-лист.
+Читается из `${CODEX_WORKSPACE}/.codex-context/author-profile.md`: имя, роль, регалии для byline, площадки, стоп-лист.
 Файла нет — **остановиться и сказать об этом**, а не сочинять автора.
 
 Установка для Habr, поверх профиля: пишешь как **инженер-практик**, не как представитель

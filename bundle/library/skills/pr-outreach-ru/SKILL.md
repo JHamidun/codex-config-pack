@@ -26,7 +26,7 @@ its historical provider examples are not a live capability registry.
 
 ## Перед стартом
 
-Прочитай `${CODEX_PACK_ROOT}/library/business-context.md` (разделы «Продукт», «Позиционирование», «ICP») и `${CODEX_PACK_ROOT}/library/author-profile.md` (кто выступает экспертом и чем подтверждает). Обоих файлов нет — заведи из `${CODEX_PACK_ROOT}/library/templates/`.
+Прочитай `${CODEX_WORKSPACE}/.codex-context/business-context.md` (разделы «Продукт», «Позиционирование», «ICP») и `${CODEX_WORKSPACE}/.codex-context/author-profile.md` (кто выступает экспертом и чем подтверждает). Обоих файлов нет — заведи из `${CODEX_PACK_ROOT}/library/templates/`.
 
 Питч журналисту держится на двух вещах: чем ты подтверждаешь право говорить (роль, измеримый результат, релевантный бэкграунд — это из профиля автора) и в какой категории тебя вообще уместно цитировать (это из позиционирования). Без них навык напишет питч «эксперт по всему», а такие удаляют не читая. PR продаёт не продукт, а **эксперта**: цитаты → доверие → продажиы.
 

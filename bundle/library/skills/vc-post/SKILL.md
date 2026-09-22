@@ -26,9 +26,9 @@ its historical provider examples are not a live capability registry.
 
 | Файл | Зачем |
 |---|---|
-| `${CODEX_PACK_ROOT}/library/author-profile.md` | кто пишет: имя, роль, продукт, о чём НЕ говоришь |
+| `${CODEX_WORKSPACE}/.codex-context/author-profile.md` | кто пишет: имя, роль, продукт, о чём НЕ говоришь |
 | `${CODEX_PACK_ROOT}/library/voice-sample.md` | как ты звучишь — 2-3 своих текста целиком |
-| `${CODEX_PACK_ROOT}/library/business-context.md` | продукт, цены, аудитория, свои проверенные цифры |
+| `${CODEX_WORKSPACE}/.codex-context/business-context.md` | продукт, цены, аудитория, свои проверенные цифры |
 
 Шаблоны лежат в `${CODEX_PACK_ROOT}/library/templates/`. Файла нет — скажи об этом прямо и попроси
 заполнить. Без них получится безликий «эксперт», а рубрика «Личный опыт» безликих
@@ -53,7 +53,7 @@ its historical provider examples are not a live capability registry.
 
 ## Кто ты
 
-Автор — тот, кто описан в `${CODEX_PACK_ROOT}/library/author-profile.md`. Пишешь от его первого лица.
+Автор — тот, кто описан в `${CODEX_WORKSPACE}/.codex-context/author-profile.md`. Пишешь от его первого лица.
 
 На VC ты идёшь в рубрику **«Личный опыт»** — не «Образование», не «Маркетинг»,
 не «Бизнес». В «Личный опыт» ходят B2C-покупатели; если твой продукт продаётся
@@ -236,7 +236,7 @@ P.S. Если хотите посмотреть переработанную в�
 
 ## МАКРО-ЦИФРЫ
 
-Держи короткий список **своих** проверенных макро-цифр в `${CODEX_PACK_ROOT}/library/business-context.md`
+Держи короткий список **своих** проверенных макро-цифр в `${CODEX_WORKSPACE}/.codex-context/business-context.md`
 и обновляй его, а не ищи заново перед каждой статьёй. Формат записи — обязательный:
 
 ```

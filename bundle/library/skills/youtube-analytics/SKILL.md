@@ -138,7 +138,7 @@ Generate structured report with:
 Это **не справочные значения**, а карточка, которую ты заполняешь СВОИМИ числами и
 дальше держишь актуальной. Смысл в том, чтобы выводы не пересчитывались заново каждый
 раз, а следующий прогон сравнивался с предыдущим. Копию удобно положить в
-`${CODEX_PACK_ROOT}/library/business-context.md` — оттуда её читают `trend-engine` и `shorts-pipeline`.
+`${CODEX_WORKSPACE}/.codex-context/business-context.md` — оттуда её читают `trend-engine` и `shorts-pipeline`.
 
 ```markdown
 Канал: [@handle] ([UC…])

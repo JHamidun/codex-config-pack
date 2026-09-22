@@ -74,6 +74,6 @@
 | «аналитика» | Когортная full-funnel на масштабе → `full-funnel-analytics-ru`. Метрики канала/ROAS-отчёт → `performance-analytics`. Метрика API/счётчик → `yandex`. |
 | «AI для маркетинга» | Cursor как сотрудник/vibe-coding → `ai-marketing-stack-ru`. Прод-бот клиенту → `autonomous-agent-creator`. AI-видео → `video-generation`. |
 | «выучиться маркетингу» / «учебный план» | НЕ один скилл → `references/learning-paths.md` (4 траектории). |
-| «маркетинг с нуля / под ключ» | Чеклист нового проекта (SKILL.md) + `references/dependencies-map.md` (порядок шагов). Первым делом — заполнить `${CODEX_PACK_ROOT}/library/business-context.md`. |
+| «маркетинг с нуля / под ключ» | Чеклист нового проекта (SKILL.md) + `references/dependencies-map.md` (порядок шагов). Первым делом — заполнить `${CODEX_WORKSPACE}/.codex-context/business-context.md`. |
 
 **Эвристика по умолчанию:** если запрос про СТРАТЕГИЮ/МЕТОДОЛОГИЮ/«как делают топы» — курсовой скилл. Если про КОНКРЕТНЫЙ АРТЕФАКТ/«дёрни API»/«напиши X» — существующий скилл стека. Часто = цепочка из обоих.

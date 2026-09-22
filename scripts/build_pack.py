@@ -71,6 +71,9 @@ def adapt(text):
     text = re.sub(r'(?i)[A-Z]:[/\\]Vibecode', '<PROJECT_ROOT>', text)
     text = re.sub(r'/(?:Users|home)/[^/\s`"<>]+', '<UPSTREAM_HOME>', text)
     text = re.sub(r'\bmodel\s*[:=]\s*["\']?(?:opus|sonnet|haiku|fable)[\w.-]*["\']?', 'model: inherit-current-codex-model', text)
+    for name in ('business-context.md', 'author-profile.md'):
+        text = text.replace('${CODEX_PACK_ROOT}/library/' + name,
+                            '${CODEX_WORKSPACE}/.codex-context/' + name)
     return text
 
 
@@ -100,9 +103,13 @@ def build(source, output):
     entries, omissions, copied = [], [], []
     tracked = subprocess.check_output(['git', '-C', str(source), 'ls-files', '-z'], text=True).split('\0')
     selected = ('skills/', 'commands/', 'agents/', 'rules/', 'config/',
-                'get-shit-done/', 'schemas/', 'templates/', 'workflows/')
+                'get-shit-done/', 'schemas/', 'templates/', 'workflows/',
+                'docs/', 'prompts/', 'scripts/', 'tools/', 'hooks/', 'mcps/')
     for relative in sorted(filter(None, tracked)):
-        if not relative.startswith('.claude/') or not relative[len('.claude/'):].startswith(selected):
+        if not relative.startswith('.claude/'):
+            continue
+        if not relative[len('.claude/'):].startswith(selected):
+            omissions.append({'path': relative, 'reason': 'upstream-root-runtime-metadata-not-installed'})
             continue
         src = source / relative
         rel = Path(relative[len('.claude/'):])
@@ -163,15 +170,60 @@ def build(source, output):
         copied.append({'source': relative, 'path': dst.relative_to(output).as_posix(), 'source_sha256': digest(raw), 'status': 'adapted-reference'})
     audit = dependency_audit.audit(output, entries)
     native = json.loads((REPO / 'native/registry.json').read_text(encoding='utf-8'))
+    groups = json.loads((REPO / 'native/procedure-groups.json').read_text(encoding='utf-8'))
+    operations = json.loads((REPO / 'native/gsd-operations.json').read_text(encoding='utf-8'))
+    connections = json.loads((REPO / 'native/connection-contracts.json').read_text(encoding='utf-8'))
     for entry in entries:
         entry['execution'] = native['entries'].get(entry['id'], {
             'mode': 'instructions' if entry['status'] == 'instructions-adapted' else 'needs-adapter',
             'verification': 'not-executed',
         })
+        if entry['id'] in native['entries']:
+            continue
+        matches = [name for name, group in groups.items() if entry['name'] in group[entry['kind'] + 's']]
+        services = [name for name, group in connections.items() if entry['name'] in group[entry['kind'] + 's']]
+        if len(services) > 1 or (matches and services):
+            raise ValueError('Ambiguous connection route: ' + entry['id'])
+        if len(matches) > 1:
+            raise ValueError('Ambiguous native procedure: ' + entry['id'])
+        operation = Path(entry['source']).stem if '/commands/gsd/' in entry['source'] else None
+        if operation in operations:
+            matches = ['gsd']
+        if matches:
+            entry['execution'] = {
+                'mode': 'native-procedure', 'recipe': 'native/recipes/' + matches[0] + '.md',
+                'verification': 'procedure-reviewed; host-execution-not-live-tested',
+                'domain_reference': entry['path'],
+            }
+            if operation in operations:
+                entry['execution']['operation'] = operations[operation]
+            if matches[0] == 'gsd':
+                entry['execution']['helpers'] = ['scripts/planning.py', 'scripts/runtime.py']
+            if matches[0] == 'memory':
+                entry['execution']['helpers'] = ['scripts/memory.py', 'scripts/runtime.py']
+        if services:
+            entry['execution'] = {
+                'mode': 'connection-required', 'recipe': 'native/recipes/service.md',
+                'verification': 'connection-procedure-defined; provider-not-live-tested',
+                'domain_reference': entry['path'], 'service': services[0],
+                'required': connections[services[0]]['required'],
+            }
+        if entry.get('agent_file') and (matches or services):
+            agent = {'name': Path(entry['agent_file']).stem, 'description': entry['description'],
+                     'developer_instructions': contract + '\n\nUse the native ' + (matches or services)[0] +
+                     ' procedure from this pack. Prepare the exact catalog ID `' + entry['id'] +
+                     '` using `python "${CODEX_PACK_ROOT}/scripts/catalog.py" --prepare "' + entry['id'] + '"` before execution. Its historical source is domain reference, not an executable tool contract. '
+                     'Use native tools and inherit active model/permissions. Do not execute legacy scripts or claim independent review without an independent evaluator.'}
+            if any(word in entry['name'] for word in ('reviewer', 'fact-checker', 'security-engineer', 'explore')):
+                agent['sandbox_mode'] = 'read-only'
+            write(output / entry['agent_file'], '\n'.join(k + ' = ' + json.dumps(v, ensure_ascii=False) for k,v in agent.items()) + '\n')
     for path in sorted((REPO / 'native').rglob('*')):
         if path.is_file():
             write(output / path.relative_to(REPO), path.read_text(encoding='utf-8'))
     write(output / 'scripts/runtime.py', (REPO / 'scripts/runtime.py').read_text(encoding='utf-8'))
+    write(output / 'scripts/planning.py', (REPO / 'scripts/planning.py').read_text(encoding='utf-8'))
+    write(output / 'scripts/memory.py', (REPO / 'scripts/memory.py').read_text(encoding='utf-8'))
+    write(output / 'scripts/hygiene.py', (REPO / 'scripts/hygiene.py').read_text(encoding='utf-8'))
     write(output / 'dependency-audit.json', json.dumps(audit, ensure_ascii=False, indent=2) + '\n')
     # Upstream MCP/hooks are indexed, not activated or silently translated.
     mcp = json.loads((source / '.claude/mcp.json').read_text(encoding='utf-8'))
@@ -214,7 +266,15 @@ user task. Do not stop at printing the catalog entry or ask the user to run Pyth
 For `native-helper`, run the reviewed helper exactly as the prepared recipe says,
 using task-specific inputs and an explicit workspace. Verify the actual result.
 For `instructions`, use native tools and the selected domain guidance.
+For `native-procedure`, execute the prepared procedure and selected operation. Read
+its historical domain reference only for methodology/templates, never as a tool API.
+Use `catalog.py --read-reference "<pack-relative-path>" --workspace "<workspace>"`
+to verify and resolve a needed reference. Workspace context is private and belongs
+under the selected project's `.codex-context/`, never in the installed library.
 For `needs-adapter`, report the concrete missing adapter; do not claim completion.
+For `connection-required`, follow the selected connection procedure with its exact
+service and required action. A definition or installed package is not proof of live
+access; verify the actual capability before the operation. Never fake a provider call.
 If preparation fails, stop and repair installation integrity instead of executing
 an unverified historical fallback. Read only the selected recipe and needed references.
 Do not read the full catalog or all recipes into the conversation.
@@ -225,11 +285,11 @@ Optional custom agents have the `pack-` prefix; they inherit the current model a
 except explicitly read-only reviewers. Claude commands are recipes, not installed slash commands.
 '''
     write(output / 'router/SKILL.md', router)
-    summary = {'entries': dict(collections.Counter(e['kind'] for e in entries)), 'status': dict(collections.Counter(e['status'] for e in entries)), 'reference_files': len(copied), 'quarantined_code_files': sum(e['status'].startswith('quarantined') for e in copied), 'omitted_files': len(omissions), 'mcp_not_activated': len(integrations), 'hook_events_not_activated': len(hooks)}
+    summary = {'entries': dict(collections.Counter(e['kind'] for e in entries)), 'status': dict(collections.Counter(e['status'] for e in entries)), 'execution': dict(collections.Counter(e['execution']['mode'] for e in entries)), 'reference_files': len(copied), 'quarantined_code_files': sum(e['status'].startswith('quarantined') for e in copied), 'omitted_files': len(omissions), 'mcp_not_activated': len(integrations), 'hook_events_not_activated': len(hooks)}
     report = {'source_url': SOURCE_URL, 'source_commit': commit, 'summary': summary, 'entries': entries, 'integrations': integrations, 'hooks': hooks, 'omissions': omissions, 'source_files': copied}
     write(output / 'compatibility.json', json.dumps(report, ensure_ascii=False, indent=2) + '\n')
-    rows = ['# Compatibility matrix', '', 'Structural conversion only. No provider, source script or hook was executed.', '', '| Kind | Name | Status | Dependencies |', '|---|---|---|---|']
-    rows += ['| ' + e['kind'] + ' | ' + e['name'].replace('|', '/') + ' | ' + e['status'] + ' | ' + ', '.join(e['dependencies']) + ' |' for e in entries]
+    rows = ['# Compatibility matrix', '', 'Native procedures are separated from historical dependency flags. No provider or Claude hook was executed. Procedure coverage is not live workflow verification.', '', '| Kind | Name | Execution | Historical source status | Dependencies |', '|---|---|---|---|---|']
+    rows += ['| ' + e['kind'] + ' | ' + e['name'].replace('|', '/') + ' | ' + e['execution']['mode'] + ' | ' + e['status'] + ' | ' + ', '.join(e['dependencies']) + ' |' for e in entries]
     write(output / 'COMPATIBILITY.md', '\n'.join(rows) + '\n')
     manifest = {'schema': 1, 'source_url': SOURCE_URL, 'source_commit': commit, 'files': {p.relative_to(output).as_posix(): digest(p.read_bytes()) for p in sorted(output.rglob('*')) if p.is_file()}}
     write(output / 'manifest.json', json.dumps(manifest, indent=2) + '\n')

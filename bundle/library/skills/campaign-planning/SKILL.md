@@ -24,7 +24,7 @@ its historical provider examples are not a live capability registry.
 
 Frameworks and guidance for planning, structuring, and executing marketing campaigns.
 
-**Read `${CODEX_PACK_ROOT}/library/business-context.md` first** — sections "Product", "ICP", "Funnel" (current step values), "Channels" (what already works and on what budget) and "Economics" (what a lead and a customer cost you). No such file? Create it from `${CODEX_PACK_ROOT}/library/templates/business-context.md`.
+**Read `${CODEX_WORKSPACE}/.codex-context/business-context.md` first** — sections "Product", "ICP", "Funnel" (current step values), "Channels" (what already works and on what budget) and "Economics" (what a lead and a customer cost you). No such file? Create it from `${CODEX_PACK_ROOT}/library/templates/business-context.md`.
 
 Without it the plan comes out generic: objectives get set against benchmarks instead of your own numbers, and the budget split is guesswork. A campaign plan built on invented baselines cannot be evaluated afterwards — you will not know whether it worked.
 

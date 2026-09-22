@@ -26,7 +26,7 @@ its historical provider examples are not a live capability registry.
 каждый факт, цифра, история и цитата привязаны к файлу-источнику.
 
 Голос автора берётся из `${CODEX_PACK_ROOT}/library/voice-sample.md`, сведения об авторе — из
-`${CODEX_PACK_ROOT}/library/author-profile.md`. Шаблоны обоих — в `${CODEX_PACK_ROOT}/library/templates/`.
+`${CODEX_WORKSPACE}/.codex-context/author-profile.md`. Шаблоны обоих — в `${CODEX_PACK_ROOT}/library/templates/`.
 Файлов нет — скажи об этом прямо и попроси заполнить; не выдумывай автора сам.
 
 ## Что понадобится
@@ -35,7 +35,7 @@ its historical provider examples are not a live capability registry.
 |---|---|---|
 | Каталог книги (структура ниже) | да | создаёшь сам, путь в `BOOK_ROOT` |
 | `${CODEX_PACK_ROOT}/library/voice-sample.md` | да | шаблон `${CODEX_PACK_ROOT}/library/templates/voice-sample.md` |
-| `${CODEX_PACK_ROOT}/library/author-profile.md` | да | шаблон `${CODEX_PACK_ROOT}/library/templates/author-profile.md` |
+| `${CODEX_WORKSPACE}/.codex-context/author-profile.md` | да | шаблон `${CODEX_PACK_ROOT}/library/templates/author-profile.md` |
 | `references/privacy-decisions.md` | да, до первой главы | шаблон лежит рядом — заполняешь под свою книгу |
 | Claude CLI (подписка) | для writer/fact-checker | уже есть, если читаешь это |
 | Codex CLI (подписка ChatGPT) | нет, опционально | `npm i -g @openai/codex && codex login` — нужен только чтобы дешёвые проходы (голос, корректура) не съедали лимит Claude. Без него всё работает через Claude: `--provider claude` |

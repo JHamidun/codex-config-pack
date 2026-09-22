@@ -26,7 +26,9 @@ class InstalledWorkflowTests(unittest.TestCase):
                        for ident, route in native.items()]
             files = {'catalog.json':json.dumps({'entries':entries}).encode(),
                      'router/SKILL.md':b'Use ${CODEX_PACK_ROOT}/scripts/catalog.py'}
-            for name in ('scripts/runtime.py', 'scripts/catalog.py', *(r['recipe'] for r in native.values())):
+            helpers = {r['helper'] for r in native.values()}
+            helpers.update(h for r in native.values() for h in r.get('helpers', []))
+            for name in ('scripts/catalog.py', *sorted(helpers), *(r['recipe'] for r in native.values())):
                 files[name] = (REPO/name).read_bytes()
             for name, data in files.items():
                 path = bundle/name
@@ -68,3 +70,9 @@ class InstalledWorkflowTests(unittest.TestCase):
                     else:
                         self.assertEqual((workspace/'.snapshots'/result['result']['id']/'content').read_bytes(), b'original')
             self.assertFalse((target/'config.toml').exists())
+            choices = run('scripts/catalog.py', 'проверь пак на утечки')
+            prepared = run('scripts/catalog.py', '--prepare', choices[0]['id'])
+            self.assertEqual(prepared['mode'], 'native-helper')
+            clean = run('scripts/hygiene.py', '--workspace', str(workspace))
+            self.assertEqual(clean['findings'], [])
+            self.assertFalse(clean['security_certified'])

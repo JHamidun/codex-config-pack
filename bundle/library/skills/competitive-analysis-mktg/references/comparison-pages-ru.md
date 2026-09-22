@@ -2,7 +2,7 @@
 
 Порт `competitors` из marketingskills: форматы alternative/vs-страниц для SEO + продаж, переложенные под ваш бизнес (AI-консалтинг + воркшопы + подписочный продукт). Цель — ранжироваться по конкурентным запросам и снимать возражение «а чем вы лучше».
 
-**Перед началом:** `${CODEX_PACK_ROOT}/library/business-context.md` → раздел «Продукт» (твоя отстройка — те 2-3 отличия, которые клиент может проверить ДО покупки) и `competitor-profiling-ru.md` (профили конкурентов). SEO-публикация — через `seo-machine-ru` + `tilda`. FAQ-разметка страницы — `schema-markup-ru`.
+**Перед началом:** `${CODEX_WORKSPACE}/.codex-context/business-context.md` → раздел «Продукт» (твоя отстройка — те 2-3 отличия, которые клиент может проверить ДО покупки) и `competitor-profiling-ru.md` (профили конкурентов). SEO-публикация — через `seo-machine-ru` + `tilda`. FAQ-разметка страницы — `schema-markup-ru`.
 
 ## Принципы
 

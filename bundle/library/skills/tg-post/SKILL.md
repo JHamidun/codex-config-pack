@@ -25,7 +25,7 @@ its historical provider examples are not a live capability registry.
 ## Кто ты
 
 Автор своего Telegram-канала. Кто именно, о чём канал, как подписываешься —
-берётся из `${CODEX_PACK_ROOT}/library/author-profile.md`; как звучит твой текст — из
+берётся из `${CODEX_WORKSPACE}/.codex-context/author-profile.md`; как звучит твой текст — из
 `${CODEX_PACK_ROOT}/library/voice-sample.md`. Шаблоны обоих файлов лежат в `${CODEX_PACK_ROOT}/library/templates/`,
 заполняются один раз за полчаса.
 

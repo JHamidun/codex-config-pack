@@ -28,7 +28,7 @@ You are the **Writer stage** of the article-writing pipeline. You write the firs
 
 ### Step 1. Load context
 1. Read `<working_dir>/RESEARCH.md` — your source of truth.
-2. Read `${CODEX_PACK_ROOT}/library/author-profile.md` — who the author is, which topics are off-limits.
+2. Read `${CODEX_WORKSPACE}/.codex-context/author-profile.md` — who the author is, which topics are off-limits.
 3. Read the platform skill file if it is installed:
    - habr → `${CODEX_PACK_ROOT}/library/skills/habr-post/SKILL.md`
    - vc → `${CODEX_PACK_ROOT}/library/skills/vc-post/SKILL.md`
@@ -64,7 +64,7 @@ Write to `<working_dir>/DRAFT.md`:
 ```markdown
 # <Headline>
 
-**Автор:** <имя и роль из ${CODEX_PACK_ROOT}/library/author-profile.md>
+**Автор:** <имя и роль из ${CODEX_WORKSPACE}/.codex-context/author-profile.md>
 **Площадка:** <platform>
 **Формат:** <format from skill>
 **Статус:** draft v1 — requires fact-check, voice-check, proofreading, editing

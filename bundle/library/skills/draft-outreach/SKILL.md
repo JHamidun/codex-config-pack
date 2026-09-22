@@ -24,7 +24,7 @@ its historical provider examples are not a live capability registry.
 
 Research first, then draft. This skill never sends generic outreach - it always researches the prospect first to personalize the message. Works standalone with web search, supercharged when you connect your tools.
 
-> **RU B2B mode:** For Russian-market cold outreach (продажа AI-воркшопов + консалтинга + B2B-когорт academy корп-ЛПР), jump to **«RU B2B Cold Outreach»** below. It ports the cold-email frameworks/sequences/personalization to the RU market (русский язык, корп-ЛПР, каналы email + LinkedIn + Telegram). Before drafting, read product context: `${CODEX_PACK_ROOT}/library/business-context.md` — разделы «ICP» (персоны, боли), «Продукт» (дифференциаторы), «Цены» (что предлагаем и по чём), «Воронка» и «Учёт и аналитика» (куда класть лид). Файла нет — заведи из `${CODEX_PACK_ROOT}/library/templates/business-context.md`; без него персонализация повиснет в воздухе.
+> **RU B2B mode:** For Russian-market cold outreach (продажа AI-воркшопов + консалтинга + B2B-когорт academy корп-ЛПР), jump to **«RU B2B Cold Outreach»** below. It ports the cold-email frameworks/sequences/personalization to the RU market (русский язык, корп-ЛПР, каналы email + LinkedIn + Telegram). Before drafting, read product context: `${CODEX_WORKSPACE}/.codex-context/business-context.md` — разделы «ICP» (персоны, боли), «Продукт» (дифференциаторы), «Цены» (что предлагаем и по чём), «Воронка» и «Учёт и аналитика» (куда класть лид). Файла нет — заведи из `${CODEX_PACK_ROOT}/library/templates/business-context.md`; без него персонализация повиснет в воздухе.
 
 ---
 
@@ -198,7 +198,7 @@ IF warm intro possible:
 
 ## Перед написанием
 
-1. **Прочитай `${CODEX_PACK_ROOT}/library/business-context.md`** — разделы «ICP» (персоны, боль их словами, триггер покупки), «Продукт» (чем отличаешься и что альтернативы делают лучше — это половина работы с возражениями), «Воронка» (какой CTA у касания) и «Учёт и аналитика» (куда записывать касание). Файла нет — заведи из `${CODEX_PACK_ROOT}/library/templates/business-context.md`. Без него письмо получится «про нас», а не про адресата: пруфы придётся выдумать, а выдуманный пруф в холодном письме — это конец переписки.
+1. **Прочитай `${CODEX_WORKSPACE}/.codex-context/business-context.md`** — разделы «ICP» (персоны, боль их словами, триггер покупки), «Продукт» (чем отличаешься и что альтернативы делают лучше — это половина работы с возражениями), «Воронка» (какой CTA у касания) и «Учёт и аналитика» (куда записывать касание). Файла нет — заведи из `${CODEX_PACK_ROOT}/library/templates/business-context.md`. Без него письмо получится «про нас», а не про адресата: пруфы придётся выдумать, а выдуманный пруф в холодном письме — это конец переписки.
 2. Собери сигналы по компании/ЛПР — делегируй скиллу `lead-research` (RU-источники: Контур.Фокус, Rusprofile, СПАРК, HH, сайт). Не выдумывай факты.
 3. Определи: кому пишешь (роль из персон), что хочешь (цель касания → консультация/воркшоп), value под его роль, пруф ([ваша роль] / [N корп-клиентов] / [N материалов] / [корп-кейс]), сигнал «почему сейчас».
 
@@ -230,7 +230,7 @@ Channel-mix под топов: **email → LinkedIn → (опц.) Telegram**, ч
 | Отправка email / черновик | `gmail`, `outlook` |
 | LinkedIn касания | `linkedin` |
 | Бронь созвона / диагностики | `zoom` (бесплатная консультация) |
-| Контакты/история сделки, запись касания | API твоей CRM (Битрикс24/amoCRM/HubSpot) — какая у тебя, смотри `${CODEX_PACK_ROOT}/library/business-context.md` → «Учёт и аналитика» |
+| Контакты/история сделки, запись касания | API твоей CRM (Битрикс24/amoCRM/HubSpot) — какая у тебя, смотри `${CODEX_WORKSPACE}/.codex-context/business-context.md` → «Учёт и аналитика» |
 | Контент для ТГ | свой пайплайн постинга (в паке не поставляется) |
 
 После касания — **зафиксируй активность в CRM**: контакт, канал, дата, реакция. Записывай в свою CRM (в Битрикс24 это метод `crm.activity.add`, в amoCRM — примечание к сделке) и/или в свою продуктовую БД, если лиды живут там. Горячий enterprise эскалируется через `handoff_to_user`. Это вход в воронку (см. `revops-ru`).

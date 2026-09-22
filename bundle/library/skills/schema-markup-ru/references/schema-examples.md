@@ -1,6 +1,6 @@
 # JSON-LD примеры под свои сайты
 
-Готовые блоки. Подставь реальные значения из `${CODEX_PACK_ROOT}/library/business-context.md` (заводится из `${CODEX_PACK_ROOT}/library/templates/business-context.md`; раздел «Цены» — тарифы и суммы; раздел «Продукт» — название и URL). Цены/даты помеченные `[TODO]` — уточнять, не выдумывать. Все URL — абсолютные, даты — ISO 8601.
+Готовые блоки. Подставь реальные значения из `${CODEX_WORKSPACE}/.codex-context/business-context.md` (заводится из `${CODEX_PACK_ROOT}/library/templates/business-context.md`; раздел «Цены» — тарифы и суммы; раздел «Продукт» — название и URL). Цены/даты помеченные `[TODO]` — уточнять, не выдумывать. Все URL — абсолютные, даты — ISO 8601.
 
 ## Содержание
 - Organization (your-domain.com)

@@ -53,7 +53,7 @@ its historical provider examples are not a live capability registry.
 | `references/qualification-ru.md` | 5-фазный фреймворк квалификации + RU-модель скоринга + 152-ФЗ |
 | `references/pain-signal-prospecting.md` | **Signal-first режим** для запуска нового оффера / первых клиентов / design-партнёров, когда ICP ещё не доказан |
 
-**Перед стартом прочитай `${CODEX_PACK_ROOT}/library/business-context.md`** — разделы «ICP» (кого ищем, кто ЛПР, кто ещё влияет, кому мы НЕ подходим), «Продукт» (что предлагаем и чем отличаемся) и «Учёт и аналитика» (куда складывать найденное). Файла нет — заведи из `${CODEX_PACK_ROOT}/library/templates/business-context.md`.
+**Перед стартом прочитай `${CODEX_WORKSPACE}/.codex-context/business-context.md`** — разделы «ICP» (кого ищем, кто ЛПР, кто ещё влияет, кому мы НЕ подходим), «Продукт» (что предлагаем и чем отличаемся) и «Учёт и аналитика» (куда складывать найденное). Файла нет — заведи из `${CODEX_PACK_ROOT}/library/templates/business-context.md`.
 
 Без него скоринг не на чем строить: любой список компаний получится «похожими на кого-нибудь», а не на твоих покупателей, и ты потратишь неделю касаний по людям, которым продукт не нужен. Раздел «Кому мы НЕ подходим» экономит здесь больше, чем сам ICP.
 
@@ -74,7 +74,7 @@ its historical provider examples are not a live capability registry.
 4. **ЛПР (decision-maker mapping)** — HR-директор / рук. L&D / гендир / рук. функции / директор трансформации: `linkedin`, `social-intel`, вакансии на hh.ru, раздел «Команда/Карьера» на сайте.
 5. **Сигнал «почему сейчас»** — вакансии «опыт работы с нейросетями» + L&D-роли (hh.ru), новости про AI/трансформацию/нового CDO (WebSearch, `last30days`, CNews/TAdviser), тендеры на AI-внедрение/обучение как сигнал бюджета (`tender-search-ru`).
 6. **Квалификация и скоринг** — по `references/qualification-ru.md`: чеклист ICP + доказательство (URL) на каждый пункт, уровень уверенности, грейд Hot/Warm/Cold/Skip.
-7. **Handoff** — шортлист → `draft-outreach` (касания) + учёт с lineage (источник + дата) там, где ты ведёшь лиды: CRM или таблица из раздела «Учёт и аналитика» в `${CODEX_PACK_ROOT}/library/business-context.md`.
+7. **Handoff** — шортлист → `draft-outreach` (касания) + учёт с lineage (источник + дата) там, где ты ведёшь лиды: CRM или таблица из раздела «Учёт и аналитика» в `${CODEX_WORKSPACE}/.codex-context/business-context.md`.
 
 ## ICP Definition Template
 

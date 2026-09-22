@@ -26,7 +26,7 @@ its historical provider examples are not a live capability registry.
 чем в его же постах: там он говорит, здесь — отвечает. Навык про эту разницу.
 
 **Перед первым ответом прочитай `${CODEX_PACK_ROOT}/library/voice-sample.md`** (твои собственные тексты) и
-`${CODEX_PACK_ROOT}/library/author-profile.md` (кто ты, о чём молчишь). Файлов нет — заведи из
+`${CODEX_WORKSPACE}/.codex-context/author-profile.md` (кто ты, о чём молчишь). Файлов нет — заведи из
 `${CODEX_PACK_ROOT}/library/templates/voice-sample.md` и `${CODEX_PACK_ROOT}/library/templates/author-profile.md`.
 Без них навык выдаст усреднённый «экспертный» комментарий, который узнаётся как машинный
 с первой строки — а комментарии читают внимательнее, чем посты.

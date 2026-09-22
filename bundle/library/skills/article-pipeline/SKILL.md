@@ -29,9 +29,9 @@ its historical provider examples are not a live capability registry.
 
 | Файл | Зачем | Откуда взять |
 |---|---|---|
-| `${CODEX_PACK_ROOT}/library/author-profile.md` | кто автор: имя, роль, продукт, площадки, о чём НЕ пишет | шаблон `${CODEX_PACK_ROOT}/library/templates/author-profile.md` |
+| `${CODEX_WORKSPACE}/.codex-context/author-profile.md` | кто автор: имя, роль, продукт, площадки, о чём НЕ пишет | шаблон `${CODEX_PACK_ROOT}/library/templates/author-profile.md` |
 | `${CODEX_PACK_ROOT}/library/voice-sample.md` | 2-3 своих текста — образец голоса для стадии 4 | шаблон `${CODEX_PACK_ROOT}/library/templates/voice-sample.md` |
-| `${CODEX_PACK_ROOT}/library/business-context.md` | продукт, цифры, аудитория — источник фактов о своём бизнесе | шаблон `${CODEX_PACK_ROOT}/library/templates/business-context.md` |
+| `${CODEX_WORKSPACE}/.codex-context/business-context.md` | продукт, цифры, аудитория — источник фактов о своём бизнесе | шаблон `${CODEX_PACK_ROOT}/library/templates/business-context.md` |
 
 Без первых двух конвейер работает, но выдаёт безликого «эксперта по AI».
 Стадии 1, 2, 4, 6, 8 читают эти файлы; если файла нет — стадия обязана сказать

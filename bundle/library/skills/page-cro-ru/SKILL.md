@@ -24,7 +24,7 @@ its historical provider examples are not a live capability registry.
 
 Аудит и рост конверсии маркетинговых страниц под российский рынок. Порт `cro` из marketingskills: фреймворк анализа сохранён, инструменты и примеры адаптированы под подписочный/консалтинговый бизнес с оплатой в рублях и Яндекс-стеком.
 
-**Перед началом прочитай `${CODEX_PACK_ROOT}/library/business-context.md`** (заведи из `${CODEX_PACK_ROOT}/library/templates/business-context.md`, если файла ещё нет) — что продаёшь по приоритету, цены/CTA, карта воронки и её дыры. Не дублируй позиционирование, цены и метрики — бери их из единого источника контекста.
+**Перед началом прочитай `${CODEX_WORKSPACE}/.codex-context/business-context.md`** (заведи из `${CODEX_PACK_ROOT}/library/templates/business-context.md`, если файла ещё нет) — что продаёшь по приоритету, цены/CTA, карта воронки и её дыры. Не дублируй позиционирование, цены и метрики — бери их из единого источника контекста.
 
 ## Первичная оценка
 
@@ -118,7 +118,7 @@ its historical provider examples are not a live capability registry.
 
 ## Данные и публикация (НЕ дублировать — звать существующее)
 
-- **Трафик, bounce, конверсии целей, сегменты B2B/B2C, воронки** → твоя веб-аналитика (Метрика/GA API); какой счётчик стоит — раздел «Учёт и аналитика» в `${CODEX_PACK_ROOT}/library/business-context.md`.
+- **Трафик, bounce, конверсии целей, сегменты B2B/B2C, воронки** → твоя веб-аналитика (Метрика/GA API); какой счётчик стоит — раздел «Учёт и аналитика» в `${CODEX_WORKSPACE}/.codex-context/business-context.md`.
 - **Внесение правок на страницу/лендинг и публикация** → ваш конструктор сайтов/CMS.
 - **Заявки/лиды с форм** → ваша CRM + продуктовая БД.
 - **Конкуренты (RU)** → `competitive-analysis` / `similarweb-analytics`.

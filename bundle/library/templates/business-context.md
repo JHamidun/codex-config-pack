@@ -5,7 +5,7 @@
 > отсюда, а не выдумывают. Один файл на весь пак — иначе цена в лендинге разойдётся
 > с ценой в письме, и заметит это клиент, а не ты.
 >
-> **Куда положить.** `${CODEX_PACK_ROOT}/library/business-context.md`
+> **Куда положить.** `${CODEX_WORKSPACE}/.codex-context/business-context.md`
 >
 > **Сколько времени.** Час на первый заход. Раздел «Цены» и «Воронка» — обязательны,
 > остальное можно дозаполнять.
@@ -17,7 +17,7 @@
 
 ## Как заполнять
 
-1. `cp ${CODEX_PACK_ROOT}/library/templates/business-context.md ${CODEX_PACK_ROOT}/library/business-context.md`
+1. `cp ${CODEX_PACK_ROOT}/library/templates/business-context.md ${CODEX_WORKSPACE}/.codex-context/business-context.md`
 2. Заполняй сверху вниз. Дошёл до поля, ответа на которое нет, — **напиши
    «не знаю»**, а не правдоподобное. «Не знаю» в этом файле — рабочее значение:
    навык увидит его и либо спросит, либо честно пометит вывод как гипотезу.

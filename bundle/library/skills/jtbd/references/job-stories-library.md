@@ -1,6 +1,6 @@
 # Job Story Format + Canvas + библиотека примеров
 
-> Формат Job Story по методологии AJTBD + Job Story Canvas + 18 учебных примеров на условных продуктах: ExampleProduct (B2C-обучение), YourProduct (B2B-платформа), AI-воркшоп, AI-консалтинг. Перед применением к своему продукту сверь сегменты и боли с `${CODEX_PACK_ROOT}/library/business-context.md` (раздел «ICP»).
+> Формат Job Story по методологии AJTBD + Job Story Canvas + 18 учебных примеров на условных продуктах: ExampleProduct (B2C-обучение), YourProduct (B2B-платформа), AI-воркшоп, AI-консалтинг. Перед применением к своему продукту сверь сегменты и боли с `${CODEX_WORKSPACE}/.codex-context/business-context.md` (раздел «ICP»).
 
 ---
 

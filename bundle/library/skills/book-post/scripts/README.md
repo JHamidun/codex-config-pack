@@ -42,7 +42,7 @@ codex login
 |---|---|---|
 | `BOOK_ROOT` | `~/book` | корень книги: `chapters/`, `extracted/`, `STYLE_GUIDE.md` |
 | `VOICE_SAMPLE` | `${CODEX_PACK_ROOT}/library/voice-sample.md` | голос автора — **без него voice-pass выдаст усреднённый текст** |
-| `AUTHOR_PROFILE` | `${CODEX_PACK_ROOT}/library/author-profile.md` | кто пишет: роль, темы, о чём молчит |
+| `AUTHOR_PROFILE` | `${CODEX_WORKSPACE}/.codex-context/author-profile.md` | кто пишет: роль, темы, о чём молчит |
 | `VOICE_SAMPLES_DIR` | — | необязательно: папка со своими опубликованными `*.md` как доп. образцы |
 
 Шаблоны `voice-sample.md` и `author-profile.md` — в `${CODEX_PACK_ROOT}/library/templates/`.
