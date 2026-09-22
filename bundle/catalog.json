@@ -5405,12 +5405,21 @@
       ],
       "live_verified": false,
       "execution": {
-        "mode": "connection-required",
-        "recipe": "native/recipes/service.md",
-        "verification": "connection-procedure-defined; provider-not-live-tested",
-        "domain_reference": "library/skills/ace-step/SKILL.md",
-        "service": "specialized-local",
-        "required": "The specifically requested local engine/application and its reviewed project-owned adapter. GPU/models, CAD COM, OCR/segmentation, transparency and local PII filtering are not supplied by a generic native image tool. Do not upload unfiltered data to compensate."
+        "mode": "native-helper",
+        "recipe": "native/recipes/ace-step.md",
+        "helper": "scripts/optional_adapter.py",
+        "helpers": [
+          "scripts/adapter_io.py",
+          "scripts/runtime.py",
+          "scripts/media_adapter.py",
+          "scripts/engine_adapter.py",
+          "native/OPTIONAL-ADAPTERS.md"
+        ],
+        "command": "ace-submit, ace-fetch",
+        "verification": "adapter-contract-tested; optional-engine-inference-not-live-tested",
+        "aliases": [
+          "ace-step"
+        ]
       }
     },
     {
@@ -5710,12 +5719,21 @@
       ],
       "live_verified": false,
       "execution": {
-        "mode": "connection-required",
-        "recipe": "native/recipes/service.md",
-        "verification": "connection-procedure-defined; provider-not-live-tested",
-        "domain_reference": "library/skills/autocad-com/SKILL.md",
-        "service": "specialized-local",
-        "required": "The specifically requested local engine/application and its reviewed project-owned adapter. GPU/models, CAD COM, OCR/segmentation, transparency and local PII filtering are not supplied by a generic native image tool. Do not upload unfiltered data to compensate."
+        "mode": "native-helper",
+        "recipe": "native/recipes/autocad-com.md",
+        "helper": "scripts/optional_adapter.py",
+        "helpers": [
+          "scripts/adapter_io.py",
+          "scripts/runtime.py",
+          "scripts/media_adapter.py",
+          "scripts/engine_adapter.py",
+          "native/OPTIONAL-ADAPTERS.md"
+        ],
+        "command": "cad-inspect, cad-create",
+        "verification": "adapter-contract-tested; optional-engine-inference-not-live-tested",
+        "aliases": [
+          "autocad-com"
+        ]
       }
     },
     {
@@ -7360,12 +7378,21 @@
       ],
       "live_verified": false,
       "execution": {
-        "mode": "connection-required",
-        "recipe": "native/recipes/service.md",
-        "verification": "connection-procedure-defined; provider-not-live-tested",
-        "domain_reference": "library/skills/edit-banana/SKILL.md",
-        "service": "specialized-local",
-        "required": "The specifically requested local engine/application and its reviewed project-owned adapter. GPU/models, CAD COM, OCR/segmentation, transparency and local PII filtering are not supplied by a generic native image tool. Do not upload unfiltered data to compensate."
+        "mode": "native-helper",
+        "recipe": "native/recipes/edit-banana.md",
+        "helper": "scripts/optional_adapter.py",
+        "helpers": [
+          "scripts/adapter_io.py",
+          "scripts/runtime.py",
+          "scripts/media_adapter.py",
+          "scripts/engine_adapter.py",
+          "native/OPTIONAL-ADAPTERS.md"
+        ],
+        "command": "edit-banana",
+        "verification": "adapter-contract-tested; optional-engine-inference-not-live-tested",
+        "aliases": [
+          "edit-banana"
+        ]
       }
     },
     {
@@ -8482,12 +8509,21 @@
       ],
       "live_verified": false,
       "execution": {
-        "mode": "connection-required",
-        "recipe": "native/recipes/service.md",
-        "verification": "connection-procedure-defined; provider-not-live-tested",
-        "domain_reference": "library/skills/image-enhancer/SKILL.md",
-        "service": "specialized-local",
-        "required": "The specifically requested local engine/application and its reviewed project-owned adapter. GPU/models, CAD COM, OCR/segmentation, transparency and local PII filtering are not supplied by a generic native image tool. Do not upload unfiltered data to compensate."
+        "mode": "native-helper",
+        "recipe": "native/recipes/image-enhancer.md",
+        "helper": "scripts/optional_adapter.py",
+        "helpers": [
+          "scripts/adapter_io.py",
+          "scripts/runtime.py",
+          "scripts/media_adapter.py",
+          "scripts/engine_adapter.py",
+          "native/OPTIONAL-ADAPTERS.md"
+        ],
+        "command": "enhance, upscale",
+        "verification": "adapter-contract-tested; optional-engine-inference-not-live-tested",
+        "aliases": [
+          "image-enhancer"
+        ]
       }
     },
     {
@@ -9799,12 +9835,21 @@
       ],
       "live_verified": false,
       "execution": {
-        "mode": "connection-required",
-        "recipe": "native/recipes/service.md",
-        "verification": "connection-procedure-defined; provider-not-live-tested",
-        "domain_reference": "library/skills/ocr-restore/SKILL.md",
-        "service": "specialized-local",
-        "required": "The specifically requested local engine/application and its reviewed project-owned adapter. GPU/models, CAD COM, OCR/segmentation, transparency and local PII filtering are not supplied by a generic native image tool. Do not upload unfiltered data to compensate."
+        "mode": "native-helper",
+        "recipe": "native/recipes/ocr-restore.md",
+        "helper": "scripts/optional_adapter.py",
+        "helpers": [
+          "scripts/adapter_io.py",
+          "scripts/runtime.py",
+          "scripts/media_adapter.py",
+          "scripts/engine_adapter.py",
+          "native/OPTIONAL-ADAPTERS.md"
+        ],
+        "command": "ocr-extract, ocr-restore",
+        "verification": "adapter-contract-tested; optional-engine-inference-not-live-tested",
+        "aliases": [
+          "ocr-restore"
+        ]
       }
     },
     {
@@ -10394,12 +10439,21 @@
       ],
       "live_verified": false,
       "execution": {
-        "mode": "connection-required",
-        "recipe": "native/recipes/service.md",
-        "verification": "connection-procedure-defined; provider-not-live-tested",
-        "domain_reference": "library/skills/privacy-filter/SKILL.md",
-        "service": "specialized-local",
-        "required": "The specifically requested local engine/application and its reviewed project-owned adapter. GPU/models, CAD COM, OCR/segmentation, transparency and local PII filtering are not supplied by a generic native image tool. Do not upload unfiltered data to compensate."
+        "mode": "native-helper",
+        "recipe": "native/recipes/privacy-filter.md",
+        "helper": "scripts/optional_adapter.py",
+        "helpers": [
+          "scripts/adapter_io.py",
+          "scripts/runtime.py",
+          "scripts/media_adapter.py",
+          "scripts/engine_adapter.py",
+          "native/OPTIONAL-ADAPTERS.md"
+        ],
+        "command": "privacy-redact, privacy-restore",
+        "verification": "adapter-contract-tested; optional-engine-inference-not-live-tested",
+        "aliases": [
+          "privacy-filter"
+        ]
       }
     },
     {
@@ -11505,12 +11559,21 @@
       ],
       "live_verified": false,
       "execution": {
-        "mode": "connection-required",
-        "recipe": "native/recipes/service.md",
-        "verification": "connection-procedure-defined; provider-not-live-tested",
-        "domain_reference": "library/skills/slack-gif-creator/SKILL.md",
-        "service": "specialized-local",
-        "required": "The specifically requested local engine/application and its reviewed project-owned adapter. GPU/models, CAD COM, OCR/segmentation, transparency and local PII filtering are not supplied by a generic native image tool. Do not upload unfiltered data to compensate."
+        "mode": "native-helper",
+        "recipe": "native/recipes/slack-gif-creator.md",
+        "helper": "scripts/optional_adapter.py",
+        "helpers": [
+          "scripts/adapter_io.py",
+          "scripts/runtime.py",
+          "scripts/media_adapter.py",
+          "scripts/engine_adapter.py",
+          "native/OPTIONAL-ADAPTERS.md"
+        ],
+        "command": "gif",
+        "verification": "adapter-contract-tested; optional-engine-inference-not-live-tested",
+        "aliases": [
+          "slack-gif-creator"
+        ]
       }
     },
     {
@@ -11662,12 +11725,21 @@
       ],
       "live_verified": false,
       "execution": {
-        "mode": "connection-required",
-        "recipe": "native/recipes/service.md",
-        "verification": "connection-procedure-defined; provider-not-live-tested",
-        "domain_reference": "library/skills/sticker-pack-generator/SKILL.md",
-        "service": "specialized-local",
-        "required": "The specifically requested local engine/application and its reviewed project-owned adapter. GPU/models, CAD COM, OCR/segmentation, transparency and local PII filtering are not supplied by a generic native image tool. Do not upload unfiltered data to compensate."
+        "mode": "native-helper",
+        "recipe": "native/recipes/sticker-pack-generator.md",
+        "helper": "scripts/optional_adapter.py",
+        "helpers": [
+          "scripts/adapter_io.py",
+          "scripts/runtime.py",
+          "scripts/media_adapter.py",
+          "scripts/engine_adapter.py",
+          "native/OPTIONAL-ADAPTERS.md"
+        ],
+        "command": "segment, sticker-static, sticker-video",
+        "verification": "adapter-contract-tested; optional-engine-inference-not-live-tested",
+        "aliases": [
+          "sticker-pack-generator"
+        ]
       }
     },
     {
@@ -12548,12 +12620,21 @@
       ],
       "live_verified": false,
       "execution": {
-        "mode": "connection-required",
-        "recipe": "native/recipes/service.md",
-        "verification": "connection-procedure-defined; provider-not-live-tested",
-        "domain_reference": "library/skills/web-assets-generator/SKILL.md",
-        "service": "specialized-local",
-        "required": "The specifically requested local engine/application and its reviewed project-owned adapter. GPU/models, CAD COM, OCR/segmentation, transparency and local PII filtering are not supplied by a generic native image tool. Do not upload unfiltered data to compensate."
+        "mode": "native-helper",
+        "recipe": "native/recipes/web-assets-generator.md",
+        "helper": "scripts/optional_adapter.py",
+        "helpers": [
+          "scripts/adapter_io.py",
+          "scripts/runtime.py",
+          "scripts/media_adapter.py",
+          "scripts/engine_adapter.py",
+          "native/OPTIONAL-ADAPTERS.md"
+        ],
+        "command": "web-assets, segment",
+        "verification": "adapter-contract-tested; optional-engine-inference-not-live-tested",
+        "aliases": [
+          "web-assets-generator"
+        ]
       }
     },
     {

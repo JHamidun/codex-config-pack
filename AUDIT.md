@@ -42,8 +42,8 @@ references that were previously missing; they do not become executable adapters.
 - Import candidates and environment variable **names**, never secret values, are recorded.
   Import names are not a verified list of installable packages.
 - Historical source flags: 124 instructions-adapted and 449 requires-runtime-review.
-  These are separate from native execution routes: 464 procedures, 4 helper entries,
-  105 connection/engine contracts. No entry claims a completed live provider test.
+  These are separate from native execution routes: 464 procedures, 13 helper entries,
+  96 connection contracts. No entry claims a completed live provider test.
 
 See [bundle/dependency-audit.json](bundle/dependency-audit.json) for file/line evidence.
 Missing links in examples can be false positives. Conversely, a valid link or parsed
@@ -70,12 +70,16 @@ code. Gitleaks 8.30.1 and the pack path/state/secret validator report no unresol
 findings in the current candidate. The scanner binary is checksum-pinned; the only
 special secret-scan exception is an exact generated SHA-256 manifest line.
 
-A separate network-disabled static audit of the router/native runtime completed.
-Its 19 heuristic findings were reviewed: defensive credential denylists, fixed
-read-only Git invocations, inactive public MCP indexing and declared routing metadata.
-No unresolved runtime issue was identified by this bounded review. It was a primary-
+A separate network-disabled static audit of the router/native runtime completed,
+including the optional adapters. Its 39 heuristic findings were reviewed: defensive
+credential denylists, fixed Git/engine argument lists, inactive public MCP indexing,
+public domain-reference paths and declared routing metadata. Engine execution accepts
+only explicit trusted user installations; it is not a sandbox for malicious executables.
+No new scanner-wide exceptions were added. Private-map handling, output boundaries,
+endpoint origins and actual artifact validation were also reviewed. This was a primary-
 agent review, not an independent security certification. Historical reference code
-is not covered by a claim that it is safe to run.
+is not covered by a claim that it is safe to run. Scanner-only hits in untracked local
+type-check caches are not distributed; publication checks run on the exact Git export.
 
 ## Runtime dependencies
 
@@ -84,8 +88,8 @@ library only; Git status additionally requires Git. Building/tests need pinned
 `PyYAML==6.0.3`. No bulk pip/npm install of historical dependencies occurs.
 
 Optional accounts, local engines, GPU models, browser/document tools and third-party
-SDKs must be available for the selected action. Nine specialized recipes still need
-reviewed adapters as well as their engines. Existing native connectors are preferred,
+SDKs must be available for the selected action. Nine specialized recipes have reviewed adapters with explicit operation coverage;
+their engines remain optional user prerequisites. Existing native connectors are preferred,
 but an account lookup does not prove all operations or scopes.
 
 ## Limits

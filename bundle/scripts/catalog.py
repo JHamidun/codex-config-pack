@@ -57,7 +57,7 @@ def prepare(root, selector, workspace=None):
         verified_text(root, execution['helper'], manifest)
         for helper in execution.get('helpers', []):
             verified_text(root, helper, manifest)
-        result['instructions'] = verified_text(root, execution['recipe'], manifest)
+        result['instructions'] = verified_text(root, execution['recipe'], manifest, workspace)
         result['verification'] = execution['verification']
     elif execution['mode'] == 'instructions':
         result['instructions'] = verified_text(root, entry['path'], manifest)

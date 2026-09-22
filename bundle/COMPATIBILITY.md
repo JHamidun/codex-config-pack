@@ -236,7 +236,7 @@ Native procedures are separated from historical dependency flags. No provider or
 | skill | a11y-audit | native-procedure | requires-runtime-review | bundled-reference-code, reference-code-not-adapted, runtime_script |
 | skill | ab-testing-ru | native-procedure | requires-runtime-review | upstream_home |
 | skill | account-research | native-procedure | requires-runtime-review | unresolved-or-illustrative-local-reference |
-| skill | ace-step | connection-required | requires-runtime-review | bundled-reference-code, reference-code-not-adapted, runtime_script, upstream_home |
+| skill | ace-step | native-helper | requires-runtime-review | bundled-reference-code, reference-code-not-adapted, runtime_script, upstream_home |
 | skill | ad-benchmarks-ru | native-procedure | instructions-adapted |  |
 | skill | ad-spy | connection-required | requires-runtime-review | credential_or_session, unresolved-or-illustrative-local-reference, upstream_home |
 | skill | agent-api-server | native-procedure | requires-runtime-review | claude_runtime, credential_or_session, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference, upstream_home |
@@ -250,7 +250,7 @@ Native procedures are separated from historical dependency flags. No provider or
 | skill | apple-developer | connection-required | requires-runtime-review | credential_or_session, runtime_script |
 | skill | article-pipeline | native-procedure | requires-runtime-review | legacy_tool, parameterized-or-external-local-reference, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference, upstream_home |
 | skill | author-voice | native-procedure | requires-runtime-review | unresolved-or-illustrative-local-reference, upstream_home |
-| skill | autocad-com | connection-required | requires-runtime-review | bundled-reference-code, reference-code-not-adapted, runtime_script |
+| skill | autocad-com | native-helper | requires-runtime-review | bundled-reference-code, reference-code-not-adapted, runtime_script |
 | skill | autonomous-agent-creator | native-procedure | requires-runtime-review | bundled-reference-code, credential_or_session, dependency-manifest-not-installed, legacy_tool, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference |
 | skill | away-summary | native-procedure | instructions-adapted |  |
 | skill | aws-skills | native-procedure | requires-runtime-review | credential_or_session, runtime_script |
@@ -329,7 +329,7 @@ Native procedures are separated from historical dependency flags. No provider or
 | skill | domain-brainstormer | native-procedure | requires-runtime-review | credential_or_session |
 | skill | draft-outreach | native-procedure | requires-runtime-review | upstream_home |
 | skill | dream | native-procedure | requires-runtime-review | parameterized-or-external-local-reference, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference, upstream_home |
-| skill | edit-banana | connection-required | requires-runtime-review | bundled-reference-code, credential_or_session, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference, upstream_home |
+| skill | edit-banana | native-helper | requires-runtime-review | bundled-reference-code, credential_or_session, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference, upstream_home |
 | skill | elevenlabs | connection-required | requires-runtime-review | bundled-reference-code, credential_or_session, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference, upstream_home |
 | skill | email-imap | connection-required | requires-runtime-review | credential_or_session, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference, upstream_home |
 | skill | emil-design-eng | native-procedure | instructions-adapted |  |
@@ -379,7 +379,7 @@ Native procedures are separated from historical dependency flags. No provider or
 | skill | home-assistant | connection-required | requires-runtime-review | credential_or_session, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference, upstream_home |
 | skill | html-email | native-procedure | instructions-adapted |  |
 | skill | i18n-stress-test | native-procedure | requires-runtime-review | bundled-reference-code, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference |
-| skill | image-enhancer | connection-required | requires-runtime-review | credential_or_session |
+| skill | image-enhancer | native-helper | requires-runtime-review | credential_or_session |
 | skill | image-generation | native-procedure | requires-runtime-review | credential_or_session, runtime_script, unresolved-or-illustrative-local-reference, upstream_home |
 | skill | influencer-buying-ru | native-procedure | requires-runtime-review | unresolved-or-illustrative-local-reference |
 | skill | installer-builder | native-procedure | requires-runtime-review | runtime_script, unresolved-or-illustrative-local-reference |
@@ -440,7 +440,7 @@ Native procedures are separated from historical dependency flags. No provider or
 | skill | n8n | connection-required | requires-runtime-review | bundled-reference-code, credential_or_session, dependency-manifest-not-installed, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference, upstream_home |
 | skill | nano-banana-pro | connection-required | requires-runtime-review | credential_or_session, unresolved-or-illustrative-local-reference |
 | skill | notebooklm | connection-required | requires-runtime-review | credential_or_session, runtime_script |
-| skill | ocr-restore | connection-required | requires-runtime-review | unresolved-or-illustrative-local-reference |
+| skill | ocr-restore | native-helper | requires-runtime-review | unresolved-or-illustrative-local-reference |
 | skill | offers-ru | native-procedure | requires-runtime-review | upstream_home |
 | skill | onboarding-cro-ru | native-procedure | requires-runtime-review | upstream_home |
 | skill | onboarding-ux | native-procedure | requires-runtime-review | unresolved-or-illustrative-local-reference |
@@ -467,7 +467,7 @@ Native procedures are separated from historical dependency flags. No provider or
 | skill | pricelist-latin-check | native-procedure | requires-runtime-review | bundled-reference-code, reference-code-not-adapted, runtime_script, upstream_home |
 | skill | pricing-strategy-ru | native-procedure | requires-runtime-review | upstream_home |
 | skill | print-styles | native-procedure | requires-runtime-review | unresolved-or-illustrative-local-reference |
-| skill | privacy-filter | connection-required | requires-runtime-review | bundled-reference-code, credential_or_session, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference, upstream_home |
+| skill | privacy-filter | native-helper | requires-runtime-review | bundled-reference-code, credential_or_session, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference, upstream_home |
 | skill | prompt-engineering | native-procedure | requires-runtime-review | bundled-reference-code, reference-code-not-adapted, unresolved-or-illustrative-local-reference |
 | skill | senior-prompt-engineer | native-procedure | requires-runtime-review | bundled-reference-code, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference |
 | skill | proto-smoketest | native-procedure | requires-runtime-review | bundled-reference-code, reference-code-not-adapted, unresolved-or-illustrative-local-reference |
@@ -517,14 +517,14 @@ Native procedures are separated from historical dependency flags. No provider or
 | skill | sketch-to-html | native-procedure | requires-runtime-review | unresolved-or-illustrative-local-reference |
 | skill | skill-audit | native-procedure | requires-runtime-review | reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference, upstream_home |
 | skill | skill-creator | native-procedure | requires-runtime-review | bundled-reference-code, claude_runtime, legacy_tool, reference-code-not-adapted, runtime_script |
-| skill | slack-gif-creator | connection-required | requires-runtime-review | bundled-reference-code, dependency-manifest-not-installed, reference-code-not-adapted |
+| skill | slack-gif-creator | native-helper | requires-runtime-review | bundled-reference-code, dependency-manifest-not-installed, reference-code-not-adapted |
 | skill | slides | native-procedure | requires-runtime-review | bundled-reference-code, reference-code-not-adapted |
 | skill | sms-twilio | connection-required | requires-runtime-review | credential_or_session, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference, upstream_home |
 | skill | social-intel | native-procedure | requires-runtime-review | credential_or_session, unresolved-or-illustrative-local-reference, upstream_home |
 | skill | stakeholder-comms | native-procedure | instructions-adapted |  |
 | skill | standalone-html | native-procedure | requires-runtime-review | bundled-reference-code, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference |
 | skill | states-checklist | native-procedure | requires-runtime-review | unresolved-or-illustrative-local-reference |
-| skill | sticker-pack-generator | connection-required | requires-runtime-review | bundled-reference-code, credential_or_session, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference, upstream_home |
+| skill | sticker-pack-generator | native-helper | requires-runtime-review | bundled-reference-code, credential_or_session, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference, upstream_home |
 | skill | stock-analysis | native-procedure | requires-runtime-review | bundled-reference-code, reference-code-not-adapted, runtime_script, upstream_home |
 | skill | storybook-bridge | native-procedure | instructions-adapted |  |
 | skill | submagic | connection-required | requires-runtime-review | credential_or_session, unresolved-or-illustrative-local-reference, upstream_home |
@@ -564,7 +564,7 @@ Native procedures are separated from historical dependency flags. No provider or
 | skill | void-video | connection-required | requires-runtime-review | bundled-reference-code, credential_or_session, reference-code-not-adapted, runtime_script, upstream_home |
 | skill | watch-video | native-procedure | instructions-adapted |  |
 | skill | web-artifacts-builder | native-procedure | requires-runtime-review | bundled-reference-code, reference-code-not-adapted, runtime_script |
-| skill | web-assets-generator | connection-required | requires-runtime-review | bundled-reference-code, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference |
+| skill | web-assets-generator | native-helper | requires-runtime-review | bundled-reference-code, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference |
 | skill | webapp-testing | native-procedure | requires-runtime-review | bundled-reference-code, reference-code-not-adapted, runtime_script |
 | skill | webhook-receiver | native-procedure | requires-runtime-review | credential_or_session, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference, upstream_home |
 | skill | webinar-to-pdf | native-procedure | requires-runtime-review | bundled-reference-code, credential_or_session, reference-code-not-adapted, runtime_script, unresolved-or-illustrative-local-reference, upstream_home |

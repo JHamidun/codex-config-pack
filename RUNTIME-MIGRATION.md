@@ -16,8 +16,8 @@ to executing the historical Claude scripts:
 | Mode | Entries | What is implemented | What is not proved |
 |---|---:|---|---|
 | `native-procedure` | 464 | Codex execution procedures plus preserved domain guidance; explicit operations for every GSD command | Independent, live end-to-end execution of every recipe |
-| `native-helper` | 4 | Git status, CSV profiling, version snapshots/restore, redacted hygiene scan | Every possible request in those domains; a clean scan is not a security certificate |
-| `connection-required` | 105 | Exact service/engine requirements, native capability discovery, authorization and readback protocol | A bundled SDK, a connected account or a tested provider action; 9 specialized engines additionally need reviewed adapters |
+| `native-helper` | 13 | Four offline helper routes plus nine optional-engine adapters; exact operations in native/OPTIONAL-ADAPTERS.md | All engines running on every device; inference quality or engineering correctness from mocks |
+| `connection-required` | 96 | Exact service requirements, native capability discovery, authorization and readback protocol | A bundled SDK for every service, a connected account or a tested provider action |
 
 The builder retains original methodology, templates and references. Full bodies
 remain cold; the model loads a selected procedure and only the domain references it
@@ -59,10 +59,10 @@ automatic model selection. See [VALIDATION.md](VALIDATION.md) for exact evidence
    API credits, servers, local applications or model weights. Per-service scope is
    listed in [CONNECTIONS.md](CONNECTIONS.md). A profile read is not an end-to-end test
    of sending, exporting, generating or publishing.
-2. **Specialized engines.** Nine recipes still need an engine and reviewed project-
-   owned adapter. This is actual remaining adaptation work, not merely a login step.
-   CAD COM, GPU music generation, segmentation/OCR and local PII filtering cannot be
-   certified by a generic media instruction.
+2. **Specialized engines.** All nine now have executable adapters and specific native
+   procedures. The selected engine/application, hardware, checkpoint and authorization
+   remain user prerequisites. See [operation coverage](native/OPTIONAL-ADAPTERS.md).
+   Mocked engine contracts do not certify real inference quality or CAD correctness.
 3. **Host differences.** A CLI does not automatically supply the Desktop browser,
    documents, media, task-management or automation tools. Native capability absence
    is reported rather than bypassed through private databases or subscription tokens.
@@ -73,6 +73,7 @@ automatic model selection. See [VALIDATION.md](VALIDATION.md) for exact evidence
    but they have not all been selected and executed by fresh model sessions. A repeated
    self-review is not independent evaluation or cross-model consensus.
 
-Therefore this version is a native-procedure runtime candidate, **not a claim that
-the entire Claude installation works out of the box unchanged**. Remaining adapter
-and live-verification gaps must stay visible in release descriptions.
+This is a portable Codex release, **not a claim that the entire Claude installation
+works unchanged or every provider has been live-tested**. Optional dependencies are
+not unfinished migration work; unsupported operations and live-verification limits
+remain visible rather than being silently replaced with a different capability.

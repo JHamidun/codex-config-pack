@@ -224,6 +224,8 @@ def build(source, output):
     write(output / 'scripts/planning.py', (REPO / 'scripts/planning.py').read_text(encoding='utf-8'))
     write(output / 'scripts/memory.py', (REPO / 'scripts/memory.py').read_text(encoding='utf-8'))
     write(output / 'scripts/hygiene.py', (REPO / 'scripts/hygiene.py').read_text(encoding='utf-8'))
+    for helper in ('adapter_io.py', 'optional_adapter.py', 'media_adapter.py', 'engine_adapter.py'):
+        write(output / 'scripts' / helper, (REPO / 'scripts' / helper).read_text(encoding='utf-8'))
     write(output / 'dependency-audit.json', json.dumps(audit, ensure_ascii=False, indent=2) + '\n')
     # Upstream MCP/hooks are indexed, not activated or silently translated.
     mcp = json.loads((source / '.claude/mcp.json').read_text(encoding='utf-8'))
@@ -278,7 +280,8 @@ access; verify the actual capability before the operation. Never fake a provider
 If preparation fails, stop and repair installation integrity instead of executing
 an unverified historical fallback. Read only the selected recipe and needed references.
 Do not read the full catalog or all recipes into the conversation.
-`requires-runtime-review` entries are NOT working script/connector integrations.
+Historical `requires-runtime-review` flags describe preserved source, not the native
+replacement. Follow `execution` and its explicit verification/dependency contract.
 Never execute `.source` files or run legacy source-default commands. Resolve native tools first.
 `instructions-adapted` means structural conversion, not an end-to-end workflow test.
 Optional custom agents have the `pack-` prefix; they inherit the current model and permissions,

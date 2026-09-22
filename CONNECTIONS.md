@@ -18,13 +18,13 @@ Provider-neutral documents/images/research use native capabilities without needi
 An explicit provider request must not silently become a different provider.
 CLI-only hosts do not automatically have Desktop browser, media, documents or task-management tools.
 
-## Special engines are not just an OAuth step
+## Optional local engines
 
-`specialized-local` includes nine recipes whose original engine and reviewed adapter are not supplied:
-`ace-step`, `autocad-com`, `edit-banana`, `image-enhancer`, `ocr-restore`, `privacy-filter`, `slack-gif-creator`, `sticker-pack-generator`, `web-assets-generator`.
-They remain outside the out-of-box guarantee. A generic image or browser tool is not a substitute for CAD COM,
-GPU music generation, deterministic segmentation/OCR, local PII filtering or exact transparent asset generation.
-Do not upload unfiltered private material or invent a successful engine operation to bypass this boundary.
+Nine specialized workflows now use shipped executable adapters rather than this
+connection-only fallback. Engine/model installation remains optional and selected
+per device/task. See [OPTIONAL-ADAPTERS.md](native/OPTIONAL-ADAPTERS.md) for the exact
+implemented operations, JSON requests, official setup sources and test boundaries.
+No generic image instruction is treated as a substitute for CAD, OCR or local PII filtering.
 
 ## Per-service contracts
 
@@ -69,7 +69,6 @@ Do not upload unfiltered private material or invent a successful engine operatio
 | apple-developer | 1 | Authorized Apple Developer identity/certificates and supported signing/notarization runtime or approved CI; no certificates or signing keys are included. |
 | deployment | 5 | Explicit deployment/registry/DNS/Git remote target, authorized credentials, rollback and real service verification; never infer a server from author-specific defaults. |
 | task-manager | 2 | Authorized actual task/calendar connector for the selected account, or user-supplied exported tasks for local planning. Scheduling/sending requires exact intent. |
-| specialized-local | 9 | The specifically requested local engine/application and its reviewed project-owned adapter. GPU/models, CAD COM, OCR/segmentation, transparency and local PII filtering are not supplied by a generic native image tool. Do not upload unfiltered data to compensate. |
 | external-media | 3 | Authorized exact media provider and supported current operation/model, permitted inputs, cost boundary and completed output validation. |
 | ai-detectors | 1 | Explicit authorization to share the text with selected detector providers; scores are detector observations, not proof of authorship. |
 | course-submission | 1 | The user-selected course submission service and their authorized account. Never infer the destination from the pack author; submit only the explicit assignment/artifact and verify its actual status. |

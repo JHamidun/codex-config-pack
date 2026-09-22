@@ -76,3 +76,13 @@ class InstalledWorkflowTests(unittest.TestCase):
             clean = run('scripts/hygiene.py', '--workspace', str(workspace))
             self.assertEqual(clean['findings'], [])
             self.assertFalse(clean['security_certified'])
+            for ident in native:
+                prepared = run('scripts/catalog.py', '--prepare', ident, '--workspace', str(workspace))
+                self.assertEqual(prepared['mode'], 'native-helper')
+                self.assertFalse(prepared['executed'])
+            request = {'operation': 'ocr-restore', 'input': 'scan.txt', 'output': 'ocr-result'}
+            (workspace / 'scan.txt').write_bytes('syn\u00adthetic'.encode('utf-8'))
+            (workspace / 'job.json').write_text(json.dumps(request), encoding='utf-8')
+            adapted = run('scripts/optional_adapter.py', 'run', '--workspace', str(workspace), '--request', 'job.json')
+            self.assertEqual(adapted['status'], 'ok')
+            self.assertEqual((workspace / 'ocr-result/restored.txt').read_text(), 'synthetic')

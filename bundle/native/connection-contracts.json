@@ -371,22 +371,6 @@
     "agents": [],
     "required": "Authorized actual task/calendar connector for the selected account, or user-supplied exported tasks for local planning. Scheduling/sending requires exact intent."
   },
-  "specialized-local": {
-    "skills": [
-      "ace-step",
-      "autocad-com",
-      "edit-banana",
-      "image-enhancer",
-      "ocr-restore",
-      "privacy-filter",
-      "slack-gif-creator",
-      "sticker-pack-generator",
-      "web-assets-generator"
-    ],
-    "commands": [],
-    "agents": [],
-    "required": "The specifically requested local engine/application and its reviewed project-owned adapter. GPU/models, CAD COM, OCR/segmentation, transparency and local PII filtering are not supplied by a generic native image tool. Do not upload unfiltered data to compensate."
-  },
   "external-media": {
     "skills": [
       "replicate",
